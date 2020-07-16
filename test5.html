@@ -1,0 +1,181 @@
+<html>
+<head>
+<title> Buffu </title>
+<link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+  
+    <script src="js/jquery.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+</head>
+<body>
+<div id="div1">
+<div id="div2" class="k-content" align="center">
+<div id="div4" class="k-content">
+<input id="cb0" type="checkbox" value="cb0" /> cb0
+<input id="cb1" type="checkbox" value="cb1" /> cb1
+<input id="cb2" type="checkbox" value="cb2" /> cb2 
+<input id="cb3" type="checkbox" value="cb3" /> cb3
+<input id="cb4" type="checkbox" value="cb4" /> cb4
+<input id="cb5" type="checkbox" value="cb5" /> cb5
+<input id="cb6" type="checkbox" value="cb6" /> cb6
+<input id="cb7" type="checkbox" value="cb7" /> cb7
+<input id="cb8" type="checkbox" value="cb8" /> cb8
+<input id="cb9" type="checkbox" value="cb9" /> cb9
+<br>
+<button id="bx" class="k-button"> set </button>
+<br>
+<input type="text" class="k-textbox" id="cB" readonly /> 
+</div>
+<br> <br> <button id="show" class="k-button"> show </button> <button id="hide" class="k-button"> hide </button><br> <button id="clear" class="k-button"> clear </button> 
+<p id="p" style="font-size: 16px; font-family: Elephant"> The above checkbox properties can be changed using below fields; by using show and hide Buttons </p>
+<div id="div3" class="k-content" align="left" >
+<br>
+<br>
+<label for="AccessKey"> AccessKey </label> 
+<input type="checkbox" id="AccessKey" value="true" />
+<br>
+<br>
+<label for="BackColor"> BackColor </label>
+ <input type="text" class="k-textbox" id="BackColor" readonly />  <input id="colorpicker1" type="color" />
+<br>
+<br>
+<label for="Font"> Font </label>
+<input type="text" class="k-textbox" id="Font" readonly /> 
+          <select id="d1" type="k-dropdown">
+					      <option> - Font - </option>
+					      <option> Impact </option>
+						  <option> TimesNewRoman </option>
+						  <option> Arial </option>
+                          <option> Tahoma </option>	
+						  <option> Jokerman </option>
+						  <option> Old English Text MT </option>
+                          <option> WingDings </option>
+                          <option> Courier </option> 
+                          <option> Helvetica </option>
+                          <option> Verdana </option>
+                          <option> Elephant </option>							  
+          </select>
+<br>
+<br>
+ <label for="ForeColor"> TextColor </label> 
+ <input type="text" class="k-textbox" id="ForeColor" readonly />  <input id="colorpicker3" type="color" />
+<br>
+<br>
+<label for="CssClass"> CssClass </label>
+<input type="text" class="k-textbox" id="CssClass" readonly /> 
+<br>
+<br>
+<label for="Height"> Height </label> 
+<input type="text" class="k-textbox" id="Height" />  <button id="set1" class="k-button"> set </button>  <span id="errmsg4"></span> 
+<br>
+<br>
+<label for="Width"> Width </label> 
+<input type="text" class="k-textbox" id="Width" /> <button id="set2" class="k-button"> set </button>   <span id="errmsg5"></span> 
+<br>
+<br>
+<label for="ToolTip"> ToolTip </label> 
+<div id="ToolTip" style="height:30px;">   </div> <button id="set5" class="k-button"> set </button> 
+<br>
+<br>
+<label for="AddOptions"> AddOptions </label>
+<input type="text" class="k-textbox" id="AddOptions" /> <button id="addOptions" class="k-button"> Add </button> 
+<br>
+<br>
+<label for="RemoveOptions"> RemoveOptions </label>
+<input type="text" class="k-textbox" id="RemoveOptions" /> <button id="removeOptions" class="k-button"> Remove </button> 
+</div>
+</div>
+</div>
+<script>
+$(document).ready(function(){
+var d=setInterval(changeColor, 1000);
+function changeColor() {
+  document.getElementById('p').style.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    }
+	
+$("#AccessKey").click(function(){	
+    if ($('input[type=checkbox]').is(':checked')) {
+     $("#cb0").attr("accesskey","`");
+	 }
+   }); 
+$("#bx").click(function(){
+   
+  
+	   var u = $("input[type='checkbox']").val();
+	  $("#cB").val(u);
+
+
+}); 
+$("#clear").click(function(){
+	$('input[type=text]').each(function() 
+	{
+        $(this).val('');
+    });
+    });
+
+$('span').css("color","red");      
+$('label').css("float","left");	
+$("#colorpicker1").change(function(){
+	   var q = $("#colorpicker1").val();
+	   $("#BackColor").val(q);
+	   $("#dd").css("background-color",$("#BackColor").val());
+	    $("#dD").css("background-color",$("#BackColor").val());
+});
+$("#d1").change(function(){
+	   var e = $("option:selected", this).val();
+	   $("#Font").val(e);
+	   $("#dd").css("font-family",$("#Font").val());
+	   $("#dD").css("font-family",$("#Font").val());
+});
+$("#hide").click(function(){	
+   $("#div3").hide();	
+   });
+$("#show").click(function()
+{
+  $("#div3").show();
+  });
+  $("#Height").keypress(function (e) {
+     
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+       
+        $("#errmsg4").html("Digits Only").show().fadeOut("slow");
+               return false;}
+			 $("#set1").click(function(){	  var h = $(this).val();
+	$("#dd").css("height",$("#Height").val());
+	});
+});
+$("#Width").keypress(function (e) {
+     
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+       
+        $("#errmsg5").html("Digits Only").show().fadeOut("slow");
+               return false; }
+			   $("#set2").click(function(){ var w = $(this).val();
+	$("#dd").css("width",$("#Width").val());
+	});
+});
+var cn = $("#dd").attr('class');
+$("#CssClass").val(cn);
+$("#ToolTip").kendoTooltip({
+    autoHide: false,
+    showOn: "click"
+});
+$("#ToolTip").kendoEditor();
+$("#set5").click(function(){ 
+        var tt = $('#ToolTip').text();
+		   $("#dd").attr("title", tt);
+		});
+$("#addOptions").click(function() { 
+    var option = $("#AddOptions").val();
+    $('#dd').append($('<option />', {
+    text: option
+}));
+});	
+$("#removeOptions").click(function() { debugger;
+         var option = $("#RemoveOptions").val();    
+        $('#dd option:contains(option)').remove();
+		 });
+});
+</script>
+</body>
+</html>

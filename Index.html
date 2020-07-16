@@ -1,0 +1,249 @@
+<script>
+    $("#inner_breadcrumb").html($('#menu1_tv_active span').text());
+
+    var row_count = 0;
+    var filter_params = '';
+    var crud_mode = 'ADD';
+    var selected_row_data;
+    var selected_row_list = [];
+    var selectedRowData = {};
+	var gridElement = $("");
+  function showLoading(e) {
+    kendo.ui.progress(gridElement, true);
+}
+    function addFilterRow() {
+        row_count++;
+        // $('#table_filters').append("<div id='row_" + row_count + "' style='width:100%; display:block; float:right;'><div class='pull-right'style='margin-top:3px;'><div class='pull-left' style='margin-right:3px;'><select id='column_select_" + row_count + "' class='k-input k-dropdown'></select></div><div class='pull-left' style='margin-right:3px;'><select id='operator_select_" + row_count + "' class='k-input k-dropdown'></select></div><div class='pull-left' style='margin-right:3px;'><input id='filter_value_" + row_count + "' type='text' class='k-input k-textbox'></input></div><div class='pull-left'><button class='k-button' id='add_button' onClick='deleteFilterRow(" + row_count + ")'> <i class='fa-fw fa fa-close'></i></button></div></div>");
+        $('#test').append("<div id='row_" + row_count + "' style='width:100%; display:block; float:right;'><div class='pull-right'style='margin-top:3px;'><div class='pull-left' style='margin-right:3px;'><select id='column_select_" + row_count + "' class='k-input k-dropdown'></select></div><div class='pull-left' style='margin-right:3px;'><select id='operator_select_" + row_count + "' class='k-input k-dropdown'></select></div><div class='pull-left' style='margin-right:3px;'><input id='filter_value_" + row_count + "' class='k-input k-textbox'></input></div><div class='pull-left'><button class='k-button' id='add_button' onClick='deleteFilterRow(" + row_count + ")'> <i class='fa-fw fa fa-close'></i></button></div></div><br><br>");
+        populateDropdown('column_select', column_data);
+        populateDropdown('operator_select', operator_data);
+        resize();
+    }
+    function deleteFilterRow(row_id) {
+        $('#row_' + row_id).remove();
+        filter();
+        resize();
+    }
+    function populateDropdown(id, data) {
+        var select = $('#' + id + '_' + row_count);
+        $.each(data, function (i1, val1) {
+            select.append('<option value=' + val1.value + '>' + val1.text + '</option>');
+        });
+    }
+    function filter() {
+        debugger;
+        var params = '';
+        var count = 0;
+        for (i = 1; i <= row_count; i++) {
+            var column_select = $('#column_select_' + i);
+            var operator_select = $('#operator_select_' + i);
+            var filter_value = $('#filter_value_' + i);
+            //debugger;
+            if (column_select.val() && operator_select.val() && filter_value.val()) {
+                if (params == '') {
+                    params = params + column_select.val() + '|' + operator_select.val() + '|' + filter_value.val();
+                } else {
+                    params = params + '|' + column_select.val() + '|' + operator_select.val() + '|' + filter_value.val();
+                }
+            }
+        }
+        filter_params = '&filter_params=' + params;
+        debugger;
+        reloadTableData();
+    }
+    function resize() {
+        var table_header_height = $("#table_header").height();
+        var subtract_height = app_header_height + table_header_height;
+
+        $("#table_view").height($(window).height() - subtract_height);
+        $('#table_view').data('kendoGrid').refresh();
+
+    }
+    function reloadTableData() {
+        //adding a random number to the url to make it unique
+        //otherwise kendo is not making a server call
+        if (filter_params == null) filter_params = "";
+        var rand = Math.floor((Math.random() * 10) + 1);
+        if (filter_params == "")
+            filter_params = filter_params + "DUMMY_FILTER|" + rand + "|" + rand;
+        else
+            filter_params = filter_params + "|DUMMY_FILTER|" + rand + "|" + rand;
+
+        //   $('#table_view').data('kendoGrid').dataSource.transport.options.read.url = "../Services/TableService.svc/GetTableData?table_name=" + screen_meta_data.table_name + filter_params;
+        $('#table_view').data('kendoGrid').dataSource.transport.options.read.url = "../Services/TableService.svc/getCRUDTableData?screen_id=" + screen_meta_data.screen_id + "&table_name=" + screen_meta_data.table_name + filter_params;
+
+        $('#table_view').data('kendoGrid').dataSource.read();
+        $('#table_view').data('kendoGrid').refresh();
+    }
+    function addTableRow(mode) {
+        crud_mode = mode;
+
+        $("#windowContainer").append("<div id='window'></div>");
+        var window = $("#window");
+        console.log(window);
+        window.data("kendoWindow");
+        //debugger;
+        window.kendoWindow({
+            width: "66%",
+            modal: true,
+            title: "Add Table Row",
+            //content: "add_currency.html",
+            content: 'general/' + screen_meta_data.table_name + ".html",
+            position: {
+                top: "90px",
+                left: "17%",
+                right: "17%"
+            },
+            deactivate: function () {
+                this.destroy();
+            }
+        });
+        window = $("#window").data("kendoWindow");
+        if (crud_mode == 'EDIT') {
+            //window.title("Edit Table Row: " + screen_meta_data.table_name);
+            window.title("Edit " + screen_meta_data.screen_name);
+
+        } else if (crud_mode == 'ADD') {
+            //window.title("Add Table Row: " + screen_meta_data.table_name);
+            window.title("Add " + screen_meta_data.screen_name);
+
+        }
+        else if (crud_mode == 'DELETE') {
+            window.title("Delete " + screen_meta_data.screen_name);
+        }
+        window.open();
+    }
+    function deleteTableRow() {
+        //debugger;
+        //selected_row_list = [];
+        //var grid = $("#table_view").data("kendoGrid");
+        ////debugger;
+        //grid.select().each(function () {
+        //    selected_row_data = grid.dataItem($(this));
+        //    if (!isRowAlreadyInList(selected_row_data, selected_row_list)) {
+        //        selected_row_list.push(selected_row_data);
+        //    }
+        //});
+		if($('.k-state-selected').length>1)
+		{
+        var generidGrid = $("#table_view").data("kendoGrid");
+        selectedRowData = generidGrid.dataItem(generidGrid.select());
+        console.log(selectedRowData);
+        addTableRow('DELETE');
+		}
+		else
+		{
+		var popupNotification = $("#notification").kendoNotification({position:{top: 120,left:450}}).data("kendoNotification");
+		 popupNotification.show("Please select the record to delete", "error");
+		}
+    }
+    $(document).ready(function () {
+        $("#table_view").kendoGrid({
+            dataSource: {
+                type: "json",
+                transport: {
+                    read: {
+                        //  url: "../Services/TableService.svc/GetTableData?table_name=" + screen_meta_data.table_name + filter_params
+                        url: "../Services/TableService.svc/getCRUDTableData?screen_id=" + screen_meta_data.screen_id + "&table_name=" + screen_meta_data.table_name + filter_params
+
+                    }
+                }
+            },
+            sortable: {
+                mode: "single",
+                allowUnsort: false
+            },
+            //dataBound: function () {
+            //    var grid = $("#table_view").data("kendoGrid");
+            //   console.log($('#table_view th[data-field="DESCR"]').attr('data-index'));
+
+            //   grid.autoFitColumn(parseInt($('#table_view th[data-field="DESCR"],#table_view th[data-field="DESCR"]').attr('data-index')));
+
+            //},
+            dataBound: function () {
+                var grid = $("#table_view").data("kendoGrid");
+                for (var i = 0; i < grid.columns.length; i++) {
+                    grid.autoFitColumn(i);
+                }
+				$('#table_view .k-grid-content td').html(function(i, v){
+				debugger;
+				
+				 if(parseInt(v)>0) $(this).addClass("number");
+				});
+            },
+            columns: ntdList[screen_meta_data.table_name],
+            change: onChange,
+            selectable: "multiple, row",
+            scrollable: true,
+            navigatable: true,
+            pageable: {
+                pageSize: 20,
+            },
+            noRecords: true,
+            messages: {
+                noRecords: "No Records Found"
+            },
+			noRecords: false,
+			messages: {
+			     noRecords: "Wait Some Time"     
+			},
+        });
+
+        //double click
+        $("#table_view").on("dblclick", "tr.k-state-selected", function () {
+            var generidGrid = $("#table_view").data("kendoGrid");
+            selectedRowData = generidGrid.dataItem(generidGrid.select());
+            console.log(487);
+            console.log(selectedRowData);
+            addTableRow('EDIT');
+        });
+
+        //column_data =
+        //[
+        //    { "text": "CURRENCY_CODE", "value": "CURRENCY_CODE" },
+        //    { "text": "DESCRIPTION", "value": "DESCRIPTION" },
+        //    { "text": "SHARECODE", "value": "SHARECODE" }
+        //]
+        operator_data =
+        [
+            { "text": "contains", "value": 1 },
+            { "text": "starts with", "value": 2 },
+            { "text": "ends with", "value": 3 },
+            { "text": "equal to", "value": 4 },
+            { "text": "not equal to", "value": 5 },
+            { "text": "less than", "value": 6 },
+            { "text": "greater than", "value": 7 }
+
+        ]
+        addFilterRow();
+
+    });
+
+
+    function onChange(e) {
+        var grid = this;
+        grid.select().each(function () {
+            selected_row_data = grid.dataItem($(this));
+        });
+    };
+
+    function isRowAlreadyInList(selected_row_data, list) {
+        var grid = $("#table_view").data("kendoGrid");
+        var columns = grid.columns;
+        var sameObjFound = false;
+        for (obj in list) {
+            var different = false;
+            for (column in columns) {
+                if (obj[column.field] != selected_row_data[column.field]) {
+                    different = true;
+                    break;
+                }
+            }
+            if (!different) {
+                sameObjFound = true;
+                break;
+            }
+        }
+        return sameObjFound;
+    }
+</script>

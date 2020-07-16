@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title> Check </title>
+    <style type="text/css">
+        #TextArea1 {
+            height: 342px;
+            width: 694px;
+        }
+    </style>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+</head>
+<body>
+    <form id="form1">
+    <div style="height: 503px">
+       <textarea id="ta"> </textarea>
+      <input type="submit" id="save" value="submit"  /> 
+	  <div id="dummy"  contenteditable=true> </div>
+    <div id="valid" style="color:red;"> there seems to be a tag element(s) in the text you entered into the textarea </div>
+        
+    </div>
+    </form>
+     <script>
+        $(document).ready(function() {
+		$("#dummy").hide();
+		$("#valid").hide();
+		$("#save").on("click",function() {
+		debugger;
+             var x1 = $("#ta").val();      
+               var x2 = x1.toLowerCase();
+			   
+                     $("#dummy").append(x1); 
+              //  var one = $("#dummy").html();
+			
+				
+                var two = $("#dummy").text();
+			alert(two);
+          /*   if(one == two)
+			 { 
+				if(x2.indexOf("<html>") <= 0 && x2.indexof("<body>") <=0 )
+                {
+                   //something goes here
+                }
+				else
+				{
+				 $("#valid").show();
+				}
+             }
+			 else
+			 {
+			  $("#valid").show();
+			 }*/
+			 });
+                              }); 
+     </script>
+</body>
+</html>

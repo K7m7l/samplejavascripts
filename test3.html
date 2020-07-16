@@ -1,0 +1,374 @@
+<html>
+<head>
+<title> Wukku </title>
+<link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+  
+    <script src="js/jquery.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+</head>
+<body>
+<div id="div1">
+<div id="div2" class="k-content" align="center">
+<input type="text" class="k-textbox" id="tb" title="check AccessKey and press Alt+`" required  /> <br> <br> <button id="show" class="k-button"> show </button> <button id="hide" class="k-button"> hide </button><br> <button id="clear" class="k-button"> clear </button> 
+<p id="p" style="font-size: 16px; font-family: Elephant"> The above TextBox properties can be changed using below fields; by using show and hide Buttons </p>
+<div id="div3" class="k-content" align="left" >
+<br>
+<br>
+<label for="AccessKey"> AccessKey </label> 
+<input type="checkbox" id="AccessKey" data-bind="checked: isChecked" />
+<br>
+<br>
+<label for="BackColor"> BackColor </label>
+ <input type="text" class="k-textbox" id="BackColor" readonly />  <input id="colorpicker1" type="color" />
+<br>
+<br>
+<label for="BorderColor"> BorderColor </label>
+ <input type="text" class="k-textbox" id="BorderColor" readonly />  <input id="colorpicker2" type="color" />
+<br>
+<br>
+<label for="BorderStyle"> BorderStyle </label>
+<input type="text" class="k-textbox" id="BorderStyle" readonly /> 
+<select id="d3" type="k-dropdown">
+					      <option> - Border Style - </option>
+					      <option>dotted</option>
+                          <option>dashed</option> 
+                          <option>double</option> 
+                          <option>hidden</option>
+</select>
+<br>
+<br>
+<label for="Font"> Font </label>
+<input type="text" class="k-textbox" id="Font" readonly /> 
+          <select id="d1" type="k-dropdown">
+					      <option> - Font - </option>
+					      <option> Impact </option>
+						  <option> TimesNewRoman </option>
+						  <option> Arial </option>
+                          <option> Tahoma </option>	
+						  <option> Jokerman </option>
+						  <option> Old English Text MT </option>
+                          <option> WingDings </option>
+                          <option> Courier </option> 
+                          <option> Helvetica </option>
+                          <option> Verdana </option>
+                          <option> Elephant </option>							  
+          </select>
+<br>
+<br>
+ <label for="TextColor"> TextColor </label> 
+ <input type="text" class="k-textbox" id="TextColor" readonly />  <input id="colorpicker3" type="color" />
+<br>
+<br>
+ <label for="datetimepicker1"> DateModified </label>
+ <input id="datetimepicker1" style="width: 250px" />
+<br>
+<br>
+ <label for="datetimepicker2"> DateCreated </label>
+ <input id="datetimepicker2" style="width: 250px" />
+<br>
+<br>
+<label for="ColumnName"> ColumnName </label>
+<input type="text" class="k-textbox" id="ColumnName" />  <span id="errmsg2"></span>
+<br>
+<br>
+<label for="ColumnOrder"> ColumnOrder </label>
+<input type="text" class="k-textbox" id="ColumnOrder" />  <span id="errmsg3"></span>
+<br>
+<br>
+<label for="ControlType"> ControlType </label>
+<input type="text" class="k-textbox" id="ControlType" /> 
+<br>
+<br>
+<label for="WebTextEditor"> WebTextEditor </label>
+<input type="text" class="k-textbox" id="WebTextEditor" readonly /> 
+<br>
+<br>
+<label for="CssClass"> CssClass </label>
+<input type="text" class="k-textbox" id="CssClass" readonly /> 
+<br>
+<br>
+<label for="DataType"> DataType </label>
+<input type="text" class="k-textbox" id="DataType" /> 
+<br>
+<br>
+<label for="DefaultType"> DefaultType </label>
+<input type="text" class="k-textbox" id="DefaultType" />
+<br>
+<br>
+<label for="DefaultValue"> DefaultValue </label>
+<input type="text" class="k-textbox" id="DefaultValue" /> 
+<br>
+<br>
+<label for="DisplayName"> DisplayName </label> 
+<input type="text" class="k-textbox" id="DisplayName" /> <span id="errmsg6"></span>
+<br>
+<br>
+<label for="Allowed Values"> Allowed Values </label>
+<input type="text" class="k-textbox" id="Allowed Values" /> 
+<br>
+<br>
+<label for="BorderWidth"> BorderWidth </label> 
+<input type="text" class="k-textbox" id="BorderWidth" />   <button id="set3" class="k-button"> set </button>  <span id="errmsg1"></span>
+<br>
+<br>
+<label for="Height"> Height </label> 
+<input type="text" class="k-textbox" id="Height" />  <button id="set1" class="k-button"> set </button>  <span id="errmsg4"></span> 
+<br>
+<br>
+<label for="Width"> Width </label> 
+<input type="text" class="k-textbox" id="Width" /> <button id="set2" class="k-button"> set </button>   <span id="errmsg5"></span> 
+<br>
+<br>
+<label for="IsHidden"> Visibility </label> 
+<input type="text" class="k-textbox" id="IsHidden" readonly /> 
+<input type="radio" name="IsHidden" value="Visible" />Y
+<input type="radio" name="IsHidden" value="Hidden" />N
+<br>
+<br>
+<label for="HorizontalAlign"> HorizontalAlign </label>
+<input type="text" class="k-textbox" id="HorizontalAlign" /> 
+<br>
+<br>
+<label for="Left"> Left </label>
+<input type="text" class="k-textbox" id="Left" />
+<br>
+<br>
+<label for="IsRequired"> IsRequired </label>
+<input type="text" class="k-textbox" id="IsRequired" readonly /> 
+<input type="radio" name="IsRequired" value="true" />Y
+<input type="radio" name="IsRequired" value="false" />N
+<br>
+<br>
+<label for="MaxLength"> MaxLength </label>
+<input type="text" class="k-textbox" id="MaxLength" /> <button id="set4" class="k-button"> set </button>   <span id="errmsg7"></span> 
+<br>
+<br>
+<label for="NullText"> NullText </label>
+<input type="text" class="k-textbox" id="NullText" /> 
+<br>
+<br>
+<label for="ReadOnly"> ReadOnly </label>
+<input type="text" class="k-textbox" id="ReadOnly" readonly /> 
+<input type="radio" name="ReadOnly" value="true" />Y
+<input type="radio" name="ReadOnly" value="false" />N
+<button id="set5" class="k-button"> set </button>  
+<br>
+<br>
+<label for="ShowInForm"> ShowInForm </label>
+<input type="text" class="k-textbox" id="ShowInForm" readonly /> 
+<input type="radio" name="ShowInForm" value="Y" />Y
+<input type="radio" name="ShowInForm" value="N" />N
+<br>
+<br>
+<label for="ShowInGrid"> ShowInGrid </label>
+<input type="text" class="k-textbox" id="ShowInGrid" readonly /> 
+<input type="radio" name="ShowInGrid" value="Y" />Y
+<input type="radio" name="ShowInGrid" value="N" />N
+<br>
+<br>
+<label for="ShowInSearch"> ShowInSearch </label>
+<input type="text" class="k-textbox" id="ShowInSearch" readonly /> 
+<input type="radio" name="ShowInSearch" value="Y" />Y
+<input type="radio" name="ShowInSearch" value="N" />N
+<br>
+<br>
+<label for="TabIndex"> TabIndex </label>
+<input type="text" class="k-textbox" id="TabIndex" /> 
+<br>
+<br>
+<label for="TextMode"> TextMode </label>
+<input type="text" class="k-textbox" id="TextMode" /> 
+<br>
+<br>
+<label for="ToolTip"> ToolTip </label> 
+<div id="ToolTip" style="height:30px;">   </div> <button id="set6" class="k-button"> set </button> 
+<br>
+<br>
+<label for="UseAsQueryParam"> UseAsQueryParam </label>
+<input type="text" class="k-textbox" id="UseAsQueryParam" /> 
+<br>
+</div>
+</div>
+</div>
+<script>
+$(document).ready(function(){
+var d=setInterval(changeColor, 1000);
+function changeColor() {
+  document.getElementById('p').style.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    }
+$("#AccessKey").click(function(){	debugger;
+    if ($('input[type=checkbox]').is(':checked')) {
+     $("#tb").attr("accesskey","`");
+	 }
+   }); 
+
+$('span').css("color","red");      
+$('label').css("float","left");	
+$("#colorpicker1").change(function(){
+	   var q = $("#colorpicker1").val();
+	   $("#BackColor").val(q);
+	   $("#tb").css("background-color",$("#BackColor").val());
+});
+$("#colorpicker2").change(function(){
+	   var x = $("#colorpicker2").val();
+	   $("#BorderColor").val(x);
+	   $("#tb").css("border-color",$("#BorderColor").val());
+});
+$("#colorpicker3").change(function(){
+	   var x = $("#colorpicker3").val();
+	   $("#TextColor").val(x);
+	   $("#tb").css("color",$("#TextColor").val());
+});
+$("#d3").change(function(){
+	   var f = $("option:selected", this).val();
+	   $("#BorderStyle").val(f);
+	   $("#tb").css("border-style",$("#BorderStyle").val());
+});
+
+$("#d1").change(function(){
+	   var e = $("option:selected", this).val();
+	   $("#Font").val(e);
+	   $("#tb").css("font-family",$("#Font").val());
+});
+
+$("input[name='IsHidden']").on("click", function() {
+            var v = $(this).val();
+			$("#IsHidden").val(v);
+	        $("#tb").css("visibility",$("#IsHidden").val());
+        });
+$("#datetimepicker1").kendoDateTimePicker({
+                        value:new Date()
+                    });
+$("#datetimepicker2").kendoDateTimePicker({
+                        value:new Date()
+                    });
+	
+$("#clear").click(function(){
+	$('input[type=text]').each(function() {
+        $(this).val('');
+		
+    });
+    });
+$("#hide").click(function(){	
+   $("#div3").hide();	
+   });
+$("#show").click(function()
+{
+  $("#div3").show();
+  });
+$("#ColumnOrder").keypress(function (e) {
+     
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+       
+        $("#errmsg3").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }   
+	});
+$("#BorderWidth").keypress(function (e) {
+     
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+       
+        $("#errmsg1").html("Digits Only").show().fadeOut("slow");
+               return false;}
+	$("#set3").click(function(){		   
+    var bw = $("#BorderWidth").val();
+	$("#tb").css("border-width",$("#BorderWidth").val());
+    });
+});
+$("#Height").keypress(function (e) {
+     
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+       
+        $("#errmsg4").html("Digits Only").show().fadeOut("slow");
+               return false;}
+			 $("#set1").click(function(){	  var h = $(this).val();
+	$("#tb").css("height",$("#Height").val());
+	});
+});
+$("#Width").keypress(function (e) {
+     
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+       
+        $("#errmsg5").html("Digits Only").show().fadeOut("slow");
+               return false; }
+			   $("#set2").click(function(){ var w = $(this).val();
+	$("#tb").css("width",$("#Width").val());
+	});
+});
+$("#ColumnName").keypress(function (e) {
+     
+     if (e.which != 8 && e.which != 0 && (e.which < 65 || e.which > 122)) {
+       
+        $("#errmsg2").html("Alphabets and Underscore Only").show().fadeOut("slow");
+               return false;
+    }
+});
+var cn = $("#tb").attr('class');
+$("#CssClass").val(cn);
+$("#DisplayName").keypress(function (e) {
+     
+     if (e.which != 8 && e.which != 0 && (e.which < 65 || e.which > 122)) {
+       
+        $("#errmsg6").html("Alphabets and Underscore Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+   $("#MaxLength").keypress(function (e) {
+     
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+       
+        $("#errmsg7").html("Digits Only").show().fadeOut("slow");
+               return false;}
+			   $("#set4").click(function(){
+	var ml = $(this).val();
+	$("#tb").attr("maxlength",$("#MaxLength").val());			   
+    });
+	});
+	$("input[name='IsRequired']").on("click", function() { debugger;
+            var v = $(this).val();
+			var name=$('#tb').val();
+    if(name.length == 0){
+        $('#tb').after('<div class="red" style="color:red;">Field is Required</div>');
+    }
+    else {
+        $('#tb').next(".red").remove(); 
+        return true;
+    }
+			$("#IsRequired").val(v);
+        });
+	$("input[name='ReadOnly']").on("click", function() {
+            var v = $(this).val();
+			$("#ReadOnly").val(v);
+	        $("#set5").click(function(){ debugger;
+	          var ro = $("#ReadOnly").val();
+	           if(ro==true){
+	               $("#tb").attr("readonly", true);
+	               }			   
+                     });
+        });
+	$("input[name='ShowInForm']").on("click", function() {
+            var v = $(this).val();
+			$("#ShowInForm").val(v);
+        });
+	$("input[name='ShowInGrid']").on("click", function() {
+            var v = $(this).val();
+			$("#ShowInGrid").val(v);
+        });
+	$("input[name='ShowInSearch']").on("click", function() {
+            var v = $(this).val();
+			$("#ShowInSearch").val(v);
+        });
+	$("#ToolTip").kendoTooltip({
+    autoHide: false,
+    showOn: "click"
+});
+$("#ToolTip").kendoEditor();
+$("#set6").click(function(){ debugger;
+        var tt = $('#ToolTip').text();
+		   $("#tb").attr("title", tt);
+		});
+});
+</script>
+</body>
+</html>

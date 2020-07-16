@@ -1,0 +1,36 @@
+<html>
+<head> <title> Graz </title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+$("#b").click(function(){
+debugger;
+var pos = $("#get").getCursorPosition();
+alert(pos);
+});
+});
+(function ($, undefined) {
+    $.fn.getCursorPosition = function() {
+        var el = $(this).get(0);
+        var pos = 0;
+        if('selectionStart' in el) {
+            pos = el.selectionStart;
+        } else if('selection' in document) {
+            el.focus();
+            var Sel = document.selection.createRange();
+            var SelLength = document.selection.createRange().text.length;
+            Sel.moveStart('character', -el.value.length);
+            pos = Sel.text.length - SelLength;
+        }
+        return pos;
+    }
+})(jQuery);
+</script>
+</head>
+<body>
+<div>
+<input id="get" type="textarea" />
+<input id="b" value="submit" type="submit" />
+</div>
+</body>
+</html>

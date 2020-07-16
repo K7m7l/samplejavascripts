@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>browserTestmodalJSmultidiv</title>
+<style>
+.bubble{
+	 height:300pt;
+	 width:300pt;
+	 border: 1px solid #ff0000;
+}
+.bubblis{
+   	 height:200pt;
+	 width:200pt;
+	 border: 1px solid #1dafbd;
+	 float :right;
+}
+.bubblisy{
+   	 height:200pt;
+	 width:200pt;
+	 border: 1px solid #507531;
+	 float :left;
+}
+body > div{
+	width:700px;
+}
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<div><div class="bubble"> </div></div>
+<div><div class="bubble"> </div></div>
+<div><div class="bubble"> </div></div>
+<div><div class="bubble"> </div></div>
+
+
+<h2>Animated Modal with Header and Footer</h2>
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+
+    </div>
+    <div class="modal-body">
+
+    </div>
+    <div class="modal-footer">
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+<script>
+$('.bubble').click(function(){
+	$(this).parent().append('<div><div class="bubblis"> </div><div class="bubblisy"> </div></div>');
+});
+$(document).ready(function(){
+		browserTest();
+		browserX();
+		browserY();
+});
+var nVer = navigator.appVersion;
+var nAgt = navigator.userAgent;
+var browserName  = navigator.appName;
+var fullVersion  = ''+parseFloat(navigator.appVersion); 
+var majorVersion = parseInt(navigator.appVersion,10);
+var nameOffset,verOffset,ix;
+
+// In Opera, the true version is after "Opera" or after "Version"
+if ((verOffset=nAgt.indexOf("Opera"))!=-1) {
+   browserName = "Opera";
+   fullVersion = nAgt.substring(verOffset+6);
+   if ((verOffset=nAgt.indexOf("Version"))!=-1) 
+     fullVersion = nAgt.substring(verOffset+8);
+}
+// In MSIE, the true version is after "MSIE" in userAgent
+else if ((verOffset=nAgt.indexOf("MSIE"))!=-1) {
+   browserName = "Microsoft Internet Explorer";
+   fullVersion = nAgt.substring(verOffset+5);
+}
+// In Chrome, the true version is after "Chrome" 
+else if ((verOffset=nAgt.indexOf("Chrome"))!=-1) {
+   browserName = "Chrome";
+   fullVersion = nAgt.substring(verOffset+7);
+}
+// In Safari, the true version is after "Safari" or after "Version" 
+else if ((verOffset=nAgt.indexOf("Safari"))!=-1) {
+   browserName = "Safari";
+   fullVersion = nAgt.substring(verOffset+7);
+   if ((verOffset=nAgt.indexOf("Version"))!=-1) 
+     fullVersion = nAgt.substring(verOffset+8);
+}
+// In Firefox, the true version is after "Firefox" 
+else if ((verOffset=nAgt.indexOf("Firefox"))!=-1) {
+    browserName = "Firefox";
+    fullVersion = nAgt.substring(verOffset+8);
+}
+// In most other browsers, "name/version" is at the end of userAgent 
+else if ( (nameOffset=nAgt.lastIndexOf(' ')+1) < (verOffset=nAgt.lastIndexOf('/')) ) {
+    browserName = nAgt.substring(nameOffset,verOffset);
+    fullVersion = nAgt.substring(verOffset+1);
+    if (browserName.toLowerCase()==browserName.toUpperCase()) {
+       browserName = navigator.appName;
+    }
+}
+// trim the fullVersion string at semicolon/space if present
+if ((ix=fullVersion.indexOf(";"))!=-1)
+    fullVersion=fullVersion.substring(0,ix);
+if ((ix=fullVersion.indexOf(" "))!=-1)
+    fullVersion=fullVersion.substring(0,ix);
+
+majorVersion = parseInt(''+fullVersion,10);
+if (isNaN(majorVersion)) {
+    fullVersion  = ''+parseFloat(navigator.appVersion); 
+    majorVersion = parseInt(navigator.appVersion,10);
+}
+
+var xyz = (''
+                +'Browser name  = '+browserName+'<br>'
+                +'Full version  = '+fullVersion+'<br>'
+                +'Major version = '+majorVersion+'<br>'
+                +'navigator.appName = '+navigator.appName+'<br>'
+                +'navigator.userAgent = '+navigator.userAgent+'<br>');
+	$('.modal-body').html(xyz);			
+</script>
+<script>
+var browserTest = function(){
+var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    
+var isFirefox = typeof InstallTrigger !== 'undefined';
+   
+var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+
+var isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+var isEdge = !isIE && !!window.StyleMedia;
+
+var isChrome = !!window.chrome && !!window.chrome.webstore;
+
+var isBlink = (isChrome || isOpera) && !!window.CSS;
+
+var output = 'Detecting browsers by ducktyping:<hr>';
+output += 'isFirefox: ' + isFirefox + '<br>';
+output += 'isChrome: ' + isChrome + '<br>';
+output += 'isSafari: ' + isSafari + '<br>';
+output += 'isOpera: ' + isOpera + '<br>';
+output += 'isIE: ' + isIE + '<br>';
+output += 'isEdge: ' + isEdge + '<br>';
+output += 'isBlink: ' + isBlink + '<br>';
+$('.modal-header').append(output);
+}
+
+var browserX = function() {
+   
+    if (browser.prototype._cachedResult)
+        return browser.prototype._cachedResult;
+
+   
+    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+
+   
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+
+   
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+
+   
+    var isChrome = !!window.chrome && !isOpera;
+
+    
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+    
+    var isEdge = !isIE && !!window.StyleMedia;
+
+    return browser.prototype._cachedResult =
+        isOpera ? 'Opera' :
+        isFirefox ? 'Firefox' :
+        isSafari ? 'Safari' :
+        isChrome ? 'Chrome' :
+        isIE ? 'IE' :
+        isEdge ? 'Edge' :
+        "Don't know";
+};
+
+
+var browserY = function() {
+   
+    if (browser.prototype._cachedResult)
+        return browser.prototype._cachedResult;
+    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+    var isChrome = !!window.chrome && !isOpera;
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    var isEdge = !isIE && !!window.StyleMedia;
+    browser.prototype._cachedResult =
+        isOpera ? 'Opera' :
+        isFirefox ? 'Firefox' :
+        isSafari ? 'Safari' :
+        isChrome ? 'Chrome' :
+        isIE ? 'IE' :
+        isEdge ? 'Edge' :
+        "Don't know";
+console.log(browser.prototype._cachedResult);
+return browser.prototype._cachedResult
+$('.modal-body').html(browser.prototype._cachedResult);	
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Generate random number</title>
+  </head>
+
+  <body>
+   <div id="div3" style="border:solid 1px blue; width: 500px; background-color:azure;">
+    <div id="div1" style="border:solid 1px red; width: 100px;"></div>
+    <br /><br />
+    <div id="div2" style="border:solid 1px green; width: 100px;">
+    <button type="button" id="btn_click" /> click me!</button>
+    </div>
+	</div>
+    <br /><br />
+    <div id="div4" style="border:solid 1px green; width: 500px;">    </div>
+    <button type="button" id="btnl_click" /> click me!</button>
+ 
+	
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script>
+      $("#btn_click").click(function(){
+        $('#div1').html(10 + Math.floor(Math.random()*91));
+      });
+
+      $("#btn_click").trigger("click");
+	   
+  var xyz = $("#div3").html();
+
+	   $("#btnl_click").click(function(){
+	   debugger;
+        $('#div4').html(xyz);
+      });
+	  
+	  
+    </script>
+  </body>
+</html>

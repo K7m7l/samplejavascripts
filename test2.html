@@ -1,0 +1,134 @@
+<html>
+<head>
+<link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+</head>
+<body id="body">
+<div id="div1">
+      <div id="div2" class="k-content" align="center">
+	  <ul id="fieldlist" style="list-style-type:none">
+                    <li>
+					<input id="tb1" type="text" class="k-textbox" />
+					<input id="colorpicker1" type="color" /> 
+					</li>					
+      	            
+                    <li>
+					   <label for="d1"> Font </label> 
+					   <select id="d1" type="k-dropdown">
+					      <option> - Font Family - </option>
+					      <option> Impact </option>
+						  <option> TimesNewRoman </option>
+						  <option> Arial </option>
+                          <option> Tahoma </option>	
+                          <option> WingDings </option>
+                          <option> Courier </option> 
+                          <option> Helvetica </option>
+                          <option> Verdana </option>	
+                       </select>						  
+						<input type="text" class="k-textbox" id="s1"  />  
+                    </li>  
+ 
+                    <li>
+					   <label for="d2"> Font </label> 
+					   <select id="d2" type="k-dropdown">
+					      <option> - Font Size - </option>
+					      <option> 8  </option>
+						  <option> 10 </option>
+						  <option> 12 </option>
+                          <option> 14 </option>	
+                          <option> 16 </option>
+                          <option> 18 </option> 
+                          <option> 20 </option>
+                          <option> 22 </option>	
+						  <option> 24 </option>
+                          <option> 26 </option>	  
+                          <option> 28 </option>
+                          <option> 32 </option>
+                          <option> 36 </option>
+                          <option> 40 </option>
+                          <option> 48 </option>
+                          <option> 54 </option>
+                          <option> 60 </option>
+                          <option> 72 </option>							  
+                       </select>						  
+						<input type="text" class="k-textbox" id="s2"  />  
+                    </li>	
+                    <li>
+					<input id="tb2" type="text" class="k-textbox" />
+					<input id="colorpicker2" type="color" /> 
+                    </li>	
+                    				
+	  </ul>
+<p id="p"> If you want to delete this rule, you can call the function stylesheet.deleteRule(index), where index is the index of the rule you want to be removed.In our article showcase example, we can create a rule that turns the display to none for all the HTML and JavaScript articles — check out the carousel example to see this in action. IE does not implement rules according to the standard. Instead of the attribute cssRules it uses rules. IE also uses removeRule instead of deleteRule and addRule(selector, rule, index) instead of insertRule. </p>
+</div>
+<div id="div3">
+<input id="xp1" type="text" class="k-textbox" /> <br>
+<input type="color" id="colorpicker3" /> <input type="text" id="tb3" style="width: 57px;" readonly /> 
+<select id="d3" type="k-dropdown">
+					      <option> - Border Style - </option>
+					      <option>dotted</option>
+                           <option>dashed</option> 
+							 <option>solid</option> 
+                            <option>double</option> 
+                            <option>hidden</option>
+</select>	<input type="text" id="tb5" style="width: 57px;" readonly >
+<br>
+<input id="xp2" type="textarea" class="k-textbox" /> <br>
+<input type="color" id="colorpicker4" /> <input type="text" id="tb4" style="width: 57px;"  readonly /> 
+</div>
+</div>	
+<script>
+$(document).ready(function(){
+   
+	 $("#colorpicker1").change(function(){
+	    var color = $("#colorpicker1").val();
+        $("#tb1").val(color); 		
+        $("#div2").css("background-color",$("#colorpicker1").val());
+		$("#body").css("background-color",$("#colorpicker1").val());
+    });
+	
+	$("#d1").change(function(){
+	   var q = $("option:selected").val();
+	   $("#s1").val(q);
+	   $("#body").css("font-family",$("#s1").val());
+	   $("#div2").css("font-family",$("#s1").val());
+	});
+	$("#d2").change(function(){     		   
+	   var r = $("option:selected", this).val();
+	   $("#s2").val(r);
+	   $("#body").css("font-size",$("#s2").val());
+	   $("#div2").css("font-size",$("#s2").val());
+	   
+	});
+	 $("#colorpicker2").change(function(){
+	    var color = $("#colorpicker2").val();
+        $("#tb2").val(color); 		
+        $("#div2").css("color",$("#colorpicker2").val());
+		$("#body").css("color",$("#colorpicker2").val());
+    });
+	
+	$("#colorpicker3").change(function(){
+	debugger;
+	   var color = $("#colorpicker3").val();
+	   $("#tb3").val(color);
+       $("xp1").css("background-color",$("#colorpicker3").val());	   
+	});
+	$("#colorpicker3").change(function(){
+	debugger;
+	   var color = $("#colorpicker4").val();
+	   $("#tb4").val(color);
+       $("xp2").css("background-color",$("#colorpicker4").val());	   
+	});
+	$("#d3").change(function()
+	{
+	var border = $("option:selected", this).val();
+	 $("#tb5").val(border);
+       $("xp1").css("border-style",$("#tb5").val());
+	});
+	});
+</script>	
+</body>
+</html>

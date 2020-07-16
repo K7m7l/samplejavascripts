@@ -1,0 +1,77 @@
+<html>
+<head>
+<Title> Kamelion </Title>
+<style>
+#p1{
+font-family: old english text mt;
+font-size: 55px;
+text-align: center;
+}
+#b1{
+    background-color: skyblue;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: wait;
+}
+p{
+font-family: old english text mt;
+font-size: 33px;
+text-align: right;
+}
+.clockStyle {
+	background-color:lightblue;
+	border: none; 
+	padding: 56px;
+	color: blue;
+	font-family:"old english text mt";
+    font-size: 40px;
+    font-weight: bold;
+	letter-spacing: 10px;
+	display: inline;
+}
+</style>
+</head>
+<body>
+<div id="p1" onmouseover="changeColor()">
+This is Kameleon Katre
+</div>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<div id="clockDisplay" class="clockStyle"></div>
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+<button id="b1" onclick="changeColor()"> K </button>
+<script>
+var d=setInterval(changeColor, 1000);
+function changeColor() {
+  document.getElementById('p1').style.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    }
+function renderTime() {
+	var currentTime = new Date();
+	var h = currentTime.getHours();
+	var m = currentTime.getMinutes();
+    var s = currentTime.getSeconds();
+	setTimeout(renderTime,1000);
+    
+	if (h < 10) {
+		h = "0" + h;
+	}
+	if (m < 10) {
+		m = "0" + m;
+	}
+	if (s < 10) {
+		s = "0" + s;
+	}
+    var myClock = document.getElementById('clockDisplay');
+	myClock.textContent = h + ":" + m + ":" + s;
+	myClock.innerText = h + ":" + m + ":" + s;
+}
+renderTime();
+</script>
+</body>
+</html>

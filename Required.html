@@ -1,0 +1,21 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<body>
+<input type="text" id="Name" />
+<script>
+$(document).ready(function () {
+    $("#Name").focus();
+    $("#Name").blur(function () {
+        var name = $('#Name').val();
+        if (name.length == 0) {
+            $('#Name').next('div.red').remove();
+            $('#Name').after('<div class="red" style="background-color:skyblue; font-family:elephant; color:red;">Name is Required</div>');
+        } else {
+            $(this).next('div.red').remove();
+            return true;
+        }
+    });
+});
+</script>
+</body>
+</html>
