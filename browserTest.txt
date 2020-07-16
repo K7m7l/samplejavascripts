@@ -1,0 +1,261 @@
+<html>
+<head>
+<style>
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+
+
+
+
+}
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (min-resolution: 192dpi) { 
+
+
+
+
+}
+/* ----------- iPad mini ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+
+/* ----------- iPad 1 and 2 ----------- */
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+
+/* ----------- iPad 3 and 4 ----------- */
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+/* ----------- Galaxy Tab 10.1 ----------- */
+
+/* Portrait and Landscape */
+@media 
+  (min-device-width: 800px) 
+  and (max-device-width: 1280px) {
+    .personal-profile-title{
+        margin-left: 23px !important;
+    }
+    .emailMonthPickerli{
+        padding-left: 0% !important;
+    }
+}
+
+/* Portrait */
+@media 
+  (max-device-width: 800px) 
+  and (orientation: portrait) { 
+
+}
+
+/* Landscape */
+@media 
+  (max-device-width: 1280px) 
+  and (orientation: landscape) { 
+
+}
+
+/* ----------- Asus Nexus 7 ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 601px) 
+  and (device-height: 906px) 
+  and (-webkit-min-device-pixel-ratio: 1.331) 
+  and (-webkit-max-device-pixel-ratio: 1.332) {
+
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 601px) 
+  and (device-height: 906px) 
+  and (-webkit-min-device-pixel-ratio: 1.331) 
+  and (-webkit-max-device-pixel-ratio: 1.332) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 601px) 
+  and (device-height: 906px) 
+  and (-webkit-min-device-pixel-ratio: 1.331) 
+  and (-webkit-max-device-pixel-ratio: 1.332) 
+  and (orientation: landscape) {
+
+}
+</style>
+</head>
+<body>
+<script>
+var browserTest = function(){
+var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    
+var isFirefox = typeof InstallTrigger !== 'undefined';
+   
+var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+
+var isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+var isEdge = !isIE && !!window.StyleMedia;
+
+var isChrome = !!window.chrome && !!window.chrome.webstore;
+
+var isBlink = (isChrome || isOpera) && !!window.CSS;
+
+var output = 'Detecting browsers by ducktyping:<hr>';
+output += 'isFirefox: ' + isFirefox + '<br>';
+output += 'isChrome: ' + isChrome + '<br>';
+output += 'isSafari: ' + isSafari + '<br>';
+output += 'isOpera: ' + isOpera + '<br>';
+output += 'isIE: ' + isIE + '<br>';
+output += 'isEdge: ' + isEdge + '<br>';
+output += 'isBlink: ' + isBlink + '<br>';
+console.log(output);
+}
+
+var browser = function() {
+   
+    if (browser.prototype._cachedResult)
+        return browser.prototype._cachedResult;
+
+   
+    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+
+   
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+
+   
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+
+   
+    var isChrome = !!window.chrome && !isOpera;
+
+    
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+    
+    var isEdge = !isIE && !!window.StyleMedia;
+
+    return browser.prototype._cachedResult =
+        isOpera ? 'Opera' :
+        isFirefox ? 'Firefox' :
+        isSafari ? 'Safari' :
+        isChrome ? 'Chrome' :
+        isIE ? 'IE' :
+        isEdge ? 'Edge' :
+        "Don't know";
+};
+
+
+var browser = function() {
+   
+    if (browser.prototype._cachedResult)
+        return browser.prototype._cachedResult;
+    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+    var isChrome = !!window.chrome && !isOpera;
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    var isEdge = !isIE && !!window.StyleMedia;
+    browser.prototype._cachedResult =
+        isOpera ? 'Opera' :
+        isFirefox ? 'Firefox' :
+        isSafari ? 'Safari' :
+        isChrome ? 'Chrome' :
+        isIE ? 'IE' :
+        isEdge ? 'Edge' :
+        "Don't know";
+console.log(browser.prototype._cachedResult);
+return browser.prototype._cachedResult
+}
+
+
+
+
+var randomString = function(length) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for(var i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+}
+</script>
+</body>
+</html>
