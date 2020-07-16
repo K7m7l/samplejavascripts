@@ -1,0 +1,444 @@
+http://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=otpauth%3A%2F%2Ftotp%2Fcdwtestcpt1%3Fsecret%3DJRRWKR3BORSXOYLZKBXXE5DBNRDUCU3FMNZGK5A%26issuer%3DLCE%2520Gateway%2520Portal
+
+
+
+$('#1').children().find('h4,a,img')
+
+
+
+
+<script>
+    $(document).ready(function () {
+        var tooltip = $("#1").children().children("p").kendoTooltip({
+            autoHide: true,
+            showOn: "mouseover",
+            position: "bottom",
+            filter: "div",
+            width: 200,
+            content: "Translation Available soon...!!"
+        }).data("kendoTooltip");
+    });
+ </script>
+
+
+
+
+
+
+<style>
+    .red-tooltip + .tooltip > .tooltip-inner {background-color: #FFC199;border: 2px solid #FF6600; color: #2c3e50; }
+</style>
+
+
+
+$('div').children('h1').kendoTooltip({
+            autoHide: true,
+            showOn: "mouseover",
+            position: "bottom",
+            filter: "div",
+            width: 200,
+            content: "Translation Available soon...!!"
+        }).data("kendoTooltip");
+
+
+
+
+
+<style>
+ function checkTranslationTooltip(tflag) {
+        if (tflag == false) {
+            if ($("h4").children("a").length > 0) {
+                var validatable = $("h4").children("a").kendoValidator({
+                    errorTemplate: "<div id='validationMessage' " +
+                             "class='k-widget k-tooltip k-tooltip-validation " +
+                                 "k-invalid-msg field-validation-error' " +
+                             "style='margin: 0.5em ;'  role='alert'>" +
+                             "<span class='k-icon k-warning'></span>" +
+                             "#=message#" +
+                             "<div class='k-callout k-callout-n'></div>" +
+                         "</div>",
+                    messages: {
+                        checkTranslationTooltip: function (input) {
+                            return input.attr("ValidationMessage", "Translation will be available soon!!!");
+                        },
+                    },
+                }).data("kendoValidator");
+                if (validatable.validate()) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if($("h3").children("a").length > 0)
+            {
+                var validatable = $("h3").children("a").kendoValidator({
+                    errorTemplate: "<div id='validationMessage' " +
+                             "class='k-widget k-tooltip k-tooltip-validation " +
+                                 "k-invalid-msg field-validation-error' " +
+                             "style='margin: 0.5em ;'  role='alert'>" +
+                             "<span class='k-icon k-warning'></span>" +
+                             "#=message#" +
+                             "<div class='k-callout k-callout-n'></div>" +
+                         "</div>",
+                    messages: {
+                        checkTranslationTooltip: function (input) {
+                            return input.attr("ValidationMessage", "Translation will be available soon!!!");
+                        },
+                    },
+                }).data("kendoValidator");
+                if (validatable.validate()) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if ($("b").children("a").length > 0)
+            {
+                var validatable = $("b").children("a").kendoValidator({
+                    errorTemplate: "<div id='validationMessage' " +
+                             "class='k-widget k-tooltip k-tooltip-validation " +
+                                 "k-invalid-msg field-validation-error' " +
+                             "style='margin: 0.5em ;'  role='alert'>" +
+                             "<span class='k-icon k-warning'></span>" +
+                             "#=message#" +
+                             "<div class='k-callout k-callout-n'></div>" +
+                         "</div>",
+                    messages: {
+                        checkTranslationTooltip: function (input) {
+                            return input.attr("ValidationMessage", "Translation will be available soon!!!");
+                        },
+                    },
+                }).data("kendoValidator");
+                if (validatable.validate()) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+</style>
+
+
+
+
+
+
+
+
+
+.k-widget .k-tooltip{ background: #FFC199; border: 2px solid #FF6600; color: #2c3e50; margin-top: 20px; }
+.k-widget.k-tooltip-validation { border:1px solid red; }
+.k-tooltip-validation .k-callout-n {border-bottom-color:red;}
+.k-widget.k-tooltip-validation { background: #FFC199; border: 2px solid #FF6600; color: #2c3e50;}
+.k-widget.k-tooltip{background: #FFC199; border: 2px solid #FF6600; color: #2c3e50; margin-top: 20px; }
+
+
+
+
+
+
+
+
+
+
+if (dictConentNewsArticles["TranslationFlag"].ToString().ToLower().Trim() == "false")
+                {
+                    toolTip = "toolTip";
+                    <script>
+                        $(document).ready(function () {
+                            $('h4').on('mouseover hover', function () {
+                                if ($('h4').children('a').length > 0) {
+                                    $(this).tooltip();
+                                }
+                            });
+                            $('h3').on('mouseover hover', function () {
+                                if ($('h3').children('a').length > 0) {
+                                    $(this).tooltip();
+                                }
+                            });
+                        });
+                    </script>
+                }
+
+
+
+<h4  data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Translation will be available soon...!!" class="red-tooltip" style="text-transform: uppercase;"><a class="@toolTip" href="@Url.Content(url)">@dictConentNewsArticles["Title"]</a></h4>
+
+
+
+
+
+<!--<cms:CSS /> -->
+<div style="" class="col-md-12"> <div class="row borderBottomRow">    <div class="col-md-12">       <div class="row">          <h1 class="margin-top-sm articleTitle transToolTip" style="display:inline-block;">             <!--<cms:Title /> -->          </h1>       </div>    </div> </div> <div class="row">    <div class="col-md-8">       <div class="row">          <p class="margin-top-sm transToolTip ">             <!--<cms:Body /> -->          </p>       </div>    </div>    <div class="col-md-4">       <div class="row text-center">          <!--<cms:Image /> -->       </div>    </div> </div>
+</div>
+
+
+
+
+ string addFlag = ArticleData["TranslationFlag"].ToString();
+ if (addFlag == "False")
+                {
+                    addFlag = "<!--" + "TranslationFlag: " + addFlag + "-->";
+                    result = result + addFlag;
+                    return result;
+                }
+                else
+                {
+                    return result;
+                }
+
+
+
+if((Trrresult.Contains("<!--TranslationFlag: False-->")==true)||(Trrresult.Contains("<!--TranslationFlag: false-->"))==true)
+
+
+
+
+
+
+  result = result + "<input type='hidden' id='TransformationFlag' value='" + addFlag + "' />";
+
+ <script type="text/javascript">
+        $(document).ready(function () {
+
+            var transformationFlag =$('#TransformationFlag').val();
+            console.log(transformationFlag);
+            if (transformationFlag == "False") {
+                $(".transToolTip").kendoTooltip({
+                    content: "Translation will be available soon",
+                    position: "bottom"
+
+                });
+            }
+            });
+        
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+USERCUSTOMISEDWIDGETS.CSHTML
+_NEWLAYOUT.CSHTML
+
+
+
+
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="popup">
+
+            </div>
+            <div class="modal-footer">
+               
+            </div>
+            </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#myModal').modal('show');
+        $('#closeModal').hide();
+        var medium = "Medium";
+            @*$(this).load("@Url.Action("GetContentNewsArticles","WidgetController")");*@
+        $.ajax({
+            url: "/Widget/GetContentNewsArticles?section=" + medium,
+            type: "GET",
+            datatype: "text/html",
+            contenttype: "application/json; charset=utf-8",
+            success: function (data) {
+                //console.log(data);
+                //$('#closeModal').prop('disabled', false);
+                //$('#closeModal').hide();
+                $('#popup').html(data);
+            },
+            error: function () {
+                //$('#closeModal').prop('disabled', true);
+                $('#closeModal').hide();
+            }
+            });
+    });
+</script>
+
+
+
+ setInterval(function () {
+        $.ajax({
+            url: "/Widget/GetContentNewsArticles/section=Alert&returnType=View",
+            type: "GET",
+         
+            datatype: "text/html",
+            contenttype: "application/json; charset=utf-8",
+
+            success: function (data) {
+                debugger;
+                if (data == "Success") {
+
+                   
+                }
+            }
+
+        });
+    }, 1000 * 60 * 0.5);
+
+
+  public ActionResult GetContentNewsArticles(string section,string returnType)
+        {
+
+            try
+            {
+                //section = "Medium";
+                //Session["UserName"] = "cdwtestcpt1";
+
+                ViewData["ContentNewsArticleUrl"] = ConfigurationManager.AppSettings["ContentNewsArticleUrl"];
+                ViewData["ArticleImageUrl"] = ConfigurationManager.AppSettings["ArticleImageUrl"];
+                ViewData["AuthorImageUrl"] = ConfigurationManager.AppSettings["AuthorImageUrl"];
+
+                userName = Session["UserName"].ToString();
+                ViewData["ErrorMessage"] = "";
+                ViewData["Imageurl"] = imgUrl;
+                ViewData["ContentNewsArticleUrl"] = contentNewsArticleUrl;
+                ViewData["ArticleImageUrl"] = articleImageUrl;
+                ViewData["AuthorImageUrl"] = authorImageUrl;
+
+
+
+                ContentList list = new ContentList();
+                list.userName = userName;
+                list.listName = "CMS Articles";
+                list.language = Session["Language"] != null ? Session["Language"].ToString() : "EN";
+                if(section=="Alert")
+                {
+                    list.alertFlag = true;
+                }
+                string contentNewsArtcles = home.GetContentNewsArticles(list);
+                Session["listName"] = list.listName;
+                JavaScriptSerializer jss = new JavaScriptSerializer();
+                Dictionary<string, object> jsonObj = (Dictionary<string, object>)jss.DeserializeObject(contentNewsArtcles);
+                WidgetModel widgetModel = new WidgetModel();
+
+                ArrayList objAnnouncements = widgetModel.ArticleData(jsonObj, "Announcements");
+                ArrayList objNewsOrArticle = widgetModel.ArticleData(jsonObj, "News/Article");
+                ArrayList objCriticalAlerts = widgetModel.ArticleData(jsonObj, "Critical Alerts");
+
+                List<Dictionary<string, object>> Announcements = null;
+                List<Dictionary<string, object>> NewsOrArticle = null;
+                List<Dictionary<string, object>> CriticalAlerts = null;
+
+                List<KeyValuePair<string, string>> objUnAcknowledge = new List<KeyValuePair<string, string>>();
+
+                if (objAnnouncements!=null && objAnnouncements.Count != 0)
+                {
+                    Announcements = objAnnouncements[0] as List<Dictionary<string, object>>;
+                }
+                if (objNewsOrArticle != null && objNewsOrArticle.Count != 0)
+                {
+                    NewsOrArticle = objNewsOrArticle[0] as List<Dictionary<string, object>>;
+                    if (objNewsOrArticle[1] != null)
+                    {
+                        objUnAcknowledge = objUnAcknowledge.Union(objNewsOrArticle[1] as List<KeyValuePair<string, string>>).ToList();
+                    }
+                }
+                if (objCriticalAlerts != null && objCriticalAlerts.Count != 0)
+                {
+                    CriticalAlerts = objCriticalAlerts[0] as List<Dictionary<string, object>>;
+                    if (objCriticalAlerts[1]!=null)
+                    {  
+                        objUnAcknowledge = objUnAcknowledge.Union(objCriticalAlerts[1] as List<KeyValuePair<string, string>>).ToList();
+                    }
+                }
+                ViewData["Acknowledge"] = objUnAcknowledge;
+
+                //List<Dictionary<string, object>> Announcements = widgetModel.ArticleData(jsonObj, "Announcements");
+                //List<Dictionary<string, object>> NewsOrArticle = widgetModel.ArticleData(jsonObj, "News/Article");
+                //List<Dictionary<string, object>> CriticalAlerts = widgetModel.ArticleData(jsonObj, "Critical Alerts");
+
+                object[] categoryData = (object[])jsonObj["categories"];
+                string[] categoryDataArray = categoryData.Cast<string>().ToArray();
+                ViewData["Categories"] = categoryDataArray;
+                ViewData["NewsOrArtcle"] = NewsOrArticle;
+                ViewData["Announcements"] = Announcements;
+                ViewData["CriticalAlerts"] = CriticalAlerts;
+                if( (section == "Alert")&&(returnType=="View"))
+                {
+                    return View("GetContentNewsArticles_Alert");
+                }
+                else if ((section == "Alert") && (returnType == "Json"))
+                {                    
+                    ArrayList objArrayList = new ArrayList();
+                    objArrayList.Add(CriticalAlerts);
+                    objArrayList.Add(NewsOrArticle);
+
+                    return Json(objArrayList);
+                }
+                if (section == "Medium")
+                {
+                    return View("GetContentNewsArticles_Medium");
+                }
+                if (section == "Large")
+                {
+                    return View("GetContentNewsArticles_Large");
+                }
+                else
+                {
+                    return View("GetContentNewsArticles");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = errorImage;
+                objLog.HandleException(ex);
+                return View();
+            }
+        }
+
+
+
+
+
+<script>
+        $(document).ready(function() {
+            var maxLength = 150;
+            $(".show-read-more").each(function(){
+                debugger
+                var myStr = $(this).html();
+                var anchorTag = $(this).find('a').attr('href');
+                if($.trim(myStr).length > maxLength){
+                    var newStr = myStr.substring(0, maxLength);
+                    var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+                    $(this).empty().html(newStr);
+                    $(this).append(' <a href="'+ anchorTag +'" class="read-more">...read more</a>');
+                    $(this).append('<span class="more-text">' + removedStr + '</span>');
+                }
+            });
+        });
+    </script>
+

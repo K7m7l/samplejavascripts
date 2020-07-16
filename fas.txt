@@ -1,0 +1,95 @@
+                        var left = document.createElement('a');
+                        var leftAspan = document.createElement('span');
+                        leftAspan.setAttribute('class', 'leftA');
+                        leftAspan.setAttribute('href', '#');
+                        left.appendChild(leftAspan);
+                        left.onclick = function () {
+                            debugger
+                            
+                            $(iframEdiv).children('video').attr('src', preV);
+                            innerFunction(index--, length)
+                        }
+
+                        var right = document.createElement('a');
+                        var rightBspan = document.createElement('span');
+                        rightBspan.setAttribute('class', 'rightB');
+                        rightBspan.setAttribute('href', '#');
+                        right.appendChild(rightBspan);
+                        right.onclick = function () {
+                            debugger
+                            
+                            $(iframEdiv).children('video').attr('src', neXt);
+                            innerFunction(index++, length)
+                        }
+
+                        right.style.float = 'right';
+                        left.style.float = 'left';
+                        
+                        var innerFunction = function (index, length) {
+                            var directDiv = document.createElement('div');
+                            directDiv.setAttribute('class', 'heightfIx');
+
+                            if ((index != 0) && (index != length - 1)) {
+                                $(directDiv).prepend(left);
+                                $(directDiv).append(right);
+                            }
+                            else if ((index == 0) && (index != length - 1)) { $(directDiv).append(right); }
+                            else if ((index != 0) && (index == length - 1)) { $(directDiv).prepend(left); }
+                            else {
+                                $(directDiv).prepend(left);
+                                $(directDiv).append(right);
+                            }
+                            $('.ekko-lightbox-container').prepend(directDiv);
+                        }
+                        innerFunction(index, length);
+						
+						
+						
+						
+						
+						 $('.ekko-lightbox-nav-overlay').css('display', 'none');
+
+                        var left = document.createElement('a');
+                        var leftAspan = document.createElement('span');
+                        leftAspan.setAttribute('class', 'leftA');
+                        leftAspan.setAttribute('href', '#');
+                        left.appendChild(leftAspan);
+                        left.onclick = function () {
+                            debugger
+                            
+                            $(iframEdiv).children('video').attr('src', preV);
+                            innerFunction(index--, length)
+                        }
+
+                        var right = document.createElement('a');
+                        var rightBspan = document.createElement('span');
+                        rightBspan.setAttribute('class', 'rightB');
+                        rightBspan.setAttribute('href', '#');
+                        right.appendChild(rightBspan);
+                        right.onclick = function () {
+                            debugger
+                            
+                            $(iframEdiv).children('video').attr('src', neXt);
+                            innerFunction(index++, length)
+                        }
+
+                        right.style.float = 'right';
+                        left.style.float = 'left';
+
+                        var innerFunction = function (index, length) {
+                            var directDiv = document.createElement('div');
+                            directDiv.setAttribute('class', 'heightfIx');
+
+                            if ((index != 0) && (index != length - 1)) {
+                                $(directDiv).prepend(left);
+                                $(directDiv).append(right);
+                            }
+                            else if ((index == 0) && (index != length - 1)) { $(directDiv).append(right); }
+                            else if ((index != 0) && (index == length - 1)) { $(directDiv).prepend(left); }
+                            else {
+                                $(directDiv).prepend(left);
+                                $(directDiv).append(right);
+                            }
+                            $('.ekko-lightbox-container').prepend(directDiv);
+                        }
+                        innerFunction(index, length);

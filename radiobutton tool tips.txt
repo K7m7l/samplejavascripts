@@ -1,0 +1,2419 @@
+//###########start code Actual Installation date#######################
+kendo.culture("en-US");
+function ValidateActualInstalDate() {
+    $("#InstallationComplete").data.serverClickEvent = $("#InstallationComplete").attr('onclick');
+    var click2 = $("#InstallationComplete").data.serverClickEvent//save the onclick event locally
+    $("#InstallationComplete").removeAttr('onclick');   //remove it from the button
+    $("#InstallationComplete").click(function() { //add click handler (as opposed to trying to use the onclick html attribute)
+        debugger;
+       
+        var inputvalue = $("#txtInstallationNotes").val().trim();
+
+        if (inputvalue!= "")  {
+            debugger;
+            var encoded = encodeURIComponent(inputvalue);
+            $('#instalNotes').val(encoded);
+            debugger;
+            var x = $('#instalNotes').val();
+            $('#txtInstallationNotes').val(' ');
+        }
+        else {
+            debugger;
+            var validatable = $("#txtInstallationNotes").kendoValidator({
+                errorTemplate: "<div id='validationMessage' " +
+                         "class='k-widget k-tooltip k-tooltip-validation " +
+                             "k-invalid-msg field-validation-error' " +
+                         "style='margin: 0.5em ;'  role='alert'>" +
+                         "<span class='k-icon k-warning'></span>" +
+                         "#=message#" +
+                         "<div class='k-callout k-callout-n'></div>" +
+                     "</div>",
+                messages: {
+              
+                    txtInstallationNotes: "Installation Exception Description Field is Required"
+                       
+                    },
+                rules: {
+                    txtInstallationNotes: function (input) {
+                        debugger;
+                        var value = $("#txtInstallationNotes").val().trim();
+                        if (value != "") {
+                            return false;
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                }
+            });
+        }
+        var validation = ActualInstalDt();
+        // alert(validation);
+
+        if (validation == true) {
+           
+            var validationActualInstalDt = checkdatelessThanTodaysDT1();
+            // alert(validationActualInstalDt  );
+            if (validationActualInstalDt == false)
+            {
+                //  alert("invalid")
+         
+                toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+                return false;
+            }
+            else {
+                //   alert("valid")
+                eval(click2);	//if true use reflection to execute the onserverclick event
+                // return true;
+            }
+        }
+        else {
+            return false;
+        }  
+    });
+}
+function ActualInstalDt() {
+    // alert("infun")
+    var validatable = $("#panelInstallationCompletion").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                 "class='k-widget k-tooltip k-tooltip-validation " +
+                     "k-invalid-msg field-validation-error' " +
+                 "style='margin: 0.5em ;'  role='alert'>" +
+                 "<span class='k-icon k-warning'></span>" +
+                 "#=message#" +
+                 "<div class='k-callout k-callout-n'></div>" +
+             "</div>",
+        messages: {
+            ActualInstalDt: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid date in mm/dd/yyyy");
+               
+            },
+
+
+        },
+        rules: {
+
+            ActualInstalDt: function (input) {
+                debugger
+                var Dateid = "txtInstallationDate";
+                if (input.is("[name=" + Dateid + "]")) {
+                    return checkdate(input.val());
+                }
+                return true;
+            },
+            
+           
+        }
+
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+function checkClientTimeZone() {
+    var _initial =$('#LocalDate').val();
+    var fromTime = new Date(_initial);
+    var toTime = new Date();
+
+    var differenceTravel = toTime.getTime() - fromTime.getTime();
+    var seconds = Math.floor((differenceTravel) / (1000));
+   // alert(seconds + "Inital" + _initial + "Later" + toTime);
+    //if (seconds < 0)
+    //{
+    //    time = secondsToTime(parseInt(seconds.toString().replace("-", "")));
+    //    timediff="-"+time.h + ":" + time.m;
+    //}
+    //else
+    //{
+    //    time = secondsToTime(seconds);
+    //    timediff = time.h + ":" + time.m;
+    //}
+    $("#LocalDiff").val(seconds);
+  
+    
+}
+function secondsToTime(secs) {
+   
+    secs = Math.round(secs);
+
+    var hours = Math.floor(secs / (60 * 60));
+    
+    var divisor_for_minutes = secs % (60 * 60);
+    var minutes = Math.floor(divisor_for_minutes / 60);
+
+    var divisor_for_seconds = divisor_for_minutes % 60;
+    var seconds = Math.ceil(divisor_for_seconds);
+
+    var obj = {
+        "h": hours,
+        "m": minutes,
+        "s": seconds
+    };
+    return obj;
+}
+
+// Attach to the document onload event
+
+function checkdatelessThanTodaysDT1() {
+    var validatable = $("#panelInstallationCompletion").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em 0 0 -10em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+
+            dtmsg: function (input) {
+                return input.attr("ValidationMessage", "Actual installation date should be less than or equal to current date ");
+            },
+
+        },
+        rules: {
+
+            dtmsg: function (input) {
+                var Dateid = "txtInstallationDate";
+                if (input.is("[name=" + Dateid + "]")) {
+                    return checkdatelessThanToday1(input.val());
+                }
+                return true;
+            },
+
+        }
+
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+function checkdatelessThanToday1(date) {
+    // alert(date)
+    var date1 = kendo.toString(kendo.parseDate(formatDate(new Date(date))), 'MM/dd/yyyy');
+    var todayDate = kendo.toString(kendo.parseDate(new Date()), 'MM/dd/yyyy');
+    //  alert(todayDate)
+    if (date1 <= todayDate) {
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+//###########End code Actual Instaldate#######################
+//###########start code Agreed Upon Instaldate#######################
+function ValidateAgreedUponInstalDate() {
+  
+    $("#SaveAfterInstallation").data.serverClickEvent = $("#SaveAfterInstallation").attr('onclick'); //save the onclick event locally
+    var click = $("#SaveAfterInstallation").data.serverClickEvent;
+    $("#SaveAfterInstallation").removeAttr('onclick');   //remove it from the button
+    $("#SaveAfterInstallation").click(function () {   //add click handler (as opposed to trying to use the onclick html attribute)
+
+        var validation = AgreeUponInstalDt();
+      
+        // alert(validation);
+
+
+        if (validation == true) {
+           
+            var validationAgreeUponInstalDt = checkdatelessThanTodaysDT();
+          
+          //   alert(validationAgreeUponInstalDt );
+            if (validationAgreeUponInstalDt == false)
+               
+            {
+               
+                //  alert("invalid")
+                return false;
+                toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+            }
+            else {
+
+                //alert(click)
+                eval(click);	//if true use reflection to execute the onserverclick event
+                // return true;
+         
+            }
+        }
+
+    
+        else {
+           
+            return false;
+        }
+
+
+    });
+
+
+
+  
+  
+      
+
+
+
+
+
+
+
+
+
+    // $("#SaveAfterInstallation").data.serverClickEvent = $("#SaveAfterInstallation").attr('onclick'); //save the onclick event locally
+    //var click = $("#SaveAfterInstallation").data.serverClickEvent;
+    //$("#SaveAfterInstallation").removeAttr('onclick');   //remove it from the button
+    //$("#SaveAfterInstallation").click(function () {   //add click handler (as opposed to trying to use the onclick html attribute)
+
+    //    var validation = AgreeUponInstalDt();
+    //    // alert(validation);
+
+    //    if (validation == true) {
+    //        var validationAgreeUponInstalDt = checkdatelessThanTodaysDT();
+    //         // alert(validationAgreeUponInstalDt );
+    //        if (validationAgreeUponInstalDt == false) {
+    //            //  alert("invalid")
+    //            toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+    //            return false;
+              
+    //        }
+    //        else {
+    //         //   alert(click)
+    //            eval(click);	//if true use reflection to execute the onserverclick event
+    //            // return true;
+    //        }
+    //    }
+    //    else {
+    //        return false;
+    //    }
+
+
+    //});
+}
+function ValidateBeforeAgreedUponInstalDate() {
+    debugger;
+    $("#RdforInstallation").data.serverClickEvent = $("#RdforInstallation").attr('onclick'); //save the onclick event locally
+    var rdclick = $("#RdforInstallation").data.serverClickEvent;
+    $("#RdforInstallation").removeAttr('onclick');   //remove it from the button
+    $("#RdforInstallation").click(function () {   //add click handler (as opposed to trying to use the onclick html attribute)
+        debugger;
+        var validation = BeforeAgreeUponInstalDt();
+        // alert(validation);
+
+        if (validation == true) {
+            var validationAgreeUponInstalDt = BeforecheckdatelessThanTodaysDT();
+            // alert(validationAgreeUponInstalDt );
+            if (validationAgreeUponInstalDt == false)
+            {
+                //  alert("invalid")
+                
+                toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+                return false;
+            }
+            else {
+                if ($('txtSitesInspection_Issue').length > 0) {
+                    debugger;
+                var inputstr1 = $('#txtSitesInspection_Issue').val().trim();
+                if (inputstr1 != "") {
+                    var encoded = encodeURIComponent(inputstr1);
+                    $('#sitesInspection').val(encoded);
+                    debugger;
+                    var x = $('#sitesInspection').val();
+                    $('#txtSitesInspection_Issue').val(' ');
+                    //   alert(click)
+                }
+                    
+                }
+                eval(rdclick);
+                //   alert(click)
+               // eval(rdclick);	//if true use reflection to execute the onserverclick event
+                // return true;
+            }
+        }
+        else {
+            return false;
+        }
+
+
+    });
+    $("#SaveAfterInstallation").data.serverClickEvent = $("#SaveAfterInstallation").attr('onclick'); //save the onclick event locally
+    var click = $("#SaveAfterInstallation").data.serverClickEvent;
+    $("#SaveAfterInstallation").removeAttr('onclick');   //remove it from the button
+    $("#SaveAfterInstallation").click(function () {   //add click handler (as opposed to trying to use the onclick html attribute)
+
+        var validation = AgreeUponInstalDt();
+        var validation = ActualInstalDt();
+        // alert(validation);
+
+        if (validation == true) {
+            var validationAgreeUponInstalDt = checkdatelessThanTodaysDT();
+            // alert(validationAgreeUponInstalDt );
+            if (validationAgreeUponInstalDt == false) {
+                //  alert("invalid")
+                return false;
+                toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+            }
+            else {
+                //   alert(click)
+                eval(click);	//if true use reflection to execute the onserverclick event
+                // return true;
+            }
+        }
+        else {
+            return false;
+        }
+
+
+    });
+}
+function AgreeUponInstalDt() {
+   // alert("infun")
+    var validatable = $("#agreedInstaldt").kendoValidator({
+       errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+            AgreedUponInstalDt: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid date in mm/dd/yyyy");
+            },
+            timpicmsg: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid time");
+            },
+
+
+        },
+        rules: {
+
+            AgreedUponInstalDt: function (input) {
+                var Dateid = "dtAgrredAfterInstallationDate";
+                if (input.is("[name=" + Dateid + "]")) {
+                    return checkdate(input.val());
+                }
+                return true;
+            },
+            timpicmsg: function (input) {
+                if (input.is("[data-role=timepicker]")) {
+                    return isTime(input.val());
+                }
+                return true;
+            },
+
+
+        }
+
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+function BeforeAgreeUponInstalDt() {
+    // alert("infun")
+    var validatable = $("#panelBeforeInspection").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                 "class='k-widget k-tooltip k-tooltip-validation " +
+                     "k-invalid-msg field-validation-error' " +
+                 "style='margin: 0.5em;'  role='alert'>" +
+                 "<span class='k-icon k-warning'></span>" +
+                 "#=message#" +
+                 "<div class='k-callout k-callout-n'></div>" +
+             "</div>",
+        messages: {
+            AgreedUponInstalDt: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid date in mm/dd/yyyy");
+            },
+            timpicmsg: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid time");
+            },
+
+
+        },
+        rules: {
+
+            AgreedUponInstalDt: function (input) {
+                var Dateid = "dtAgrredInstallationDate";
+                if (input.is("[name=" + Dateid + "]")) {
+                    return checkdate(input.val());
+                }
+                return true;
+            },
+            timpicmsg: function (input) {
+                if (input.is("[data-role=timepicker]")) {
+                    return isTime(input.val());
+                }
+                return true;
+            },
+
+
+        }
+
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+function BeforecheckdatelessThanTodaysDT() {
+    var validatable = $("#panelBeforeInspection").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+
+            dtmsg: function (input) {
+                return input.attr("ValidationMessage", "Agreed upon installation date should be on or after "+kendo.toString(kendo.parseDate(formatDate(new Date($('#ReqInstallDate').val()))), 'MM/dd/yyyy'));
+            },
+
+        },
+        rules: {
+
+            dtmsg: function (input) {
+                var Dateid = "dtAgrredInstallationDate";
+                if (input.is("[name=" + Dateid + "]")) {
+                    return checkdateGreaterThanReqInstallationDate(input.val());
+                }
+                return true;
+            },
+
+        }
+
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+function checkdatelessThanTodaysDT() {
+    var validatable = $("#agreedInstaldt").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+
+            dtmsg: function (input) {
+                return input.attr("ValidationMessage", "Agreed upon installation date should be on or after " + kendo.toString(kendo.parseDate(formatDate(new Date($('#ReqInstallDate').val()))), 'MM/dd/yyyy'));
+            },
+
+        },
+        rules: {
+
+            dtmsg: function (input) {
+                var Dateid = "dtAgrredAfterInstallationDate";
+                if (input.is("[name=" + Dateid + "]")) {
+                    //  return checkdateGreaterThanToday(input.val());
+                    return checkdateGreaterThanReqInstallationDate(input.val());
+                   // return checkdateGreaterThanReqInstallationDate(input.val());
+                }
+                return true;
+            },
+          
+        }
+
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+function checkdatelessThanToday(date) {
+    // alert(date)
+    var date1 = kendo.toString(kendo.parseDate(formatDate(new Date(date))), 'MM/dd/yyyy');
+    var todayDate = kendo.toString(kendo.parseDate(new Date()), 'MM/dd/yyyy');
+  //  alert(todayDate)
+    if (date1 <= todayDate) {
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+//###########End code Agreed Upon Instaldate#######################
+//###########start code Site Inspection date#######################
+function ValidateSiteInspectDate() {
+    debugger;
+    $("#SiteInspectionDate_Savebtn").data.serverClickEvent = $("#SiteInspectionDate_Savebtn").attr('onclick'); //save the onclick event locally
+    var click1 = $("#SiteInspectionDate_Savebtn").data.serverClickEvent;
+    $("#SiteInspectionDate_Savebtn").removeAttr('onclick');   //remove it from the button
+    $("#SiteInspectionDate_Savebtn").click(function () {   //add click handler (as opposed to trying to use the onclick html attribute)
+
+        var validation = SiteInspectionDt();
+     
+
+        if (validation == true) {
+            debugger;
+            var validationSiteInspectDt = checkdateGreaterThanTodaysDT();
+        
+            if (validationSiteInspectDt == true) {
+            
+                eval(click1);	//if true use reflection to execute the onserverclick event
+            
+            }
+         
+        }
+        
+        return false;
+
+    });
+}
+
+function SiteInspectionDt() {
+    //alert("infun")
+
+    var validatable = $("#SchedTextBoxDiv").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+            SiteInspectDt: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid date in mm/dd/yyyy");
+            },
+           
+
+        },
+        rules: {
+
+            SiteInspectDt: function (input) {
+                var Dateid = "txtScheduleSiteInsepectionDate";
+                if (input.is("[name=" + Dateid + "]")) {
+                    return checkdate(input.val());
+                }
+                return true;
+            },
+            
+
+        }
+
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+function checkdateGreaterThanTodaysDT() {
+    debugger;
+    var validatable = $("#SchedTextBoxDiv").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+           
+            dtmsg: function (input) {
+                return input.attr("ValidationMessage", "Date should not be less than todays date");
+            },
+
+        },
+        rules: {
+
+            dtmsg: function (input) {
+                var Dateid = "txtScheduleSiteInsepectionDate";
+                if (input.is("[name=" + Dateid + "]")) {
+                    debugger;
+                   return checkdateGreaterThanToday(input.val());
+                }
+                return true;
+            },
+        }
+
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+function formatDate(jsDate) {
+    // add leading zeroes to jsDate when days or months are < 10.. 
+    // i.e.
+    //     formatDate(new Date("1/3/2013") 
+    // returns
+    //    "01/03/2103"
+    ////////////////////
+  
+    return (jsDate.getDate() < 10 ? 
+        ((jsDate.getMonth() + 1) < 10 ? ("0" + (jsDate.getMonth() + 1)) : (jsDate.getMonth() + 1)) + "/" +((jsDate.getDate() ) < 10? "0" + jsDate.getDate() : jsDate.getDate()) + "/" +jsDate.getFullYear():jsDate);
+}
+function checkdateGreaterThanToday(date) {
+    debugger;
+    var date1 = kendo.toString(kendo.parseDate(formatDate(new Date(date))), 'MM/dd/yyyy');
+ // alert(date1);
+    var todayDate = kendo.toString(kendo.parseDate(new Date()), 'MM/dd/yyyy');
+    //alert(todayDate)
+
+
+    if (date1 >= todayDate) {
+        debugger;
+        return true;
+    }
+    else {
+        debugger;
+        return false;
+    }
+
+}
+function checkdateGreaterThanReqInstallationDate(date) {
+
+    var date1 = new Date(kendo.toString(kendo.parseDate(formatDate(new Date(date))), 'MM/dd/yyyy'));
+   // alert(new Date(date1));
+    // var todayDate = kendo.toString(kendo.parseDate(formatDate(new Date($('#ReqInstallDate').val())), 'MM/dd/yyyy'));
+    var todayDate = new Date(kendo.toString(kendo.parseDate(formatDate(new Date($('#ReqInstallDate').val()))), 'MM/dd/yyyy'));
+  //  alert(todayDate)
+    //alert(new Date(todayDate))
+    if (date1 != '') {
+
+        if (date1 >= todayDate) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+
+}
+//###########End code Site Inspection date#######################
+//###########Start Code for InternationalOrders###########
+//***Start International ControlBookConfig***
+function ValidateControlBookConfigInternational() {
+    var validation = CDWInernationalControlBookConfig();
+    var validationReqInstlDt = CDWRequestedInstallationDt();
+ 
+
+
+     // alert(validation)
+     // alert(validationReqInstlDt)
+
+    if (validationReqInstlDt == true && validation == true) {
+        //var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+        ////     alert(validationReqGreaterThanOrderDt)
+        //if (validationReqGreaterThanOrderDt == false) {
+        //    // alert("invalid")
+        //    return false;
+        //}
+        //else {
+        //    //  alert("valid")
+        //    toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        //    return true;
+        //}
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+function CDWRequestedLanguage() {
+    var Orderid = $("#Orderid").val();
+    //alert(Orderid);
+  
+    var validatable = $("#InternationalLanguage").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: -0.5em 30em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+   
+        messages: {
+            rdlanguage: function (input) {
+                return input.attr("ValidationMessage", "Please Select Language");
+            },
+        },
+        rules: {
+            rdlanguage: function (input) {
+                var rdlanguage = "ucOrder" + Orderid + "$rdlanguage";
+               // alert(input.val())
+                if (input.is("[name=" + rdlanguage + "]") && !$("input[name='"+rdlanguage+"']:checked").val()) {
+                    return false;
+                }
+                return true;
+
+            }
+        }
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+function CDWInernationalControlBookConfig() {
+    var Orderid = $("#Orderid").val();
+    //alert(Orderid);
+    var validatable = $("#ControlBookConfigInternational").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+            SchedueledOpenDt: function (input) {
+                return input.attr("ValidationMessage","Please enter valid date in mm/dd/yyyy");
+            },
+            timpicmsg: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid time");
+            },
+           
+        },
+        rules: {
+
+            SchedueledOpenDt: function (input) {
+                var Dateid = "ucOrder" + Orderid + "$txtScheduledOpenDt";
+                if (input.is("[name=" + Dateid + "]")) {
+                    return checkdate(input.val());
+                }
+                return true;
+            },
+            timpicmsg: function (input) {
+                if (input.is("[data-role=timepicker]")) {
+                    return isTime(input.val());
+                }
+                return true;
+            },
+        }
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+//***End International ControlBookConfig***
+//***Start International MenuPrices***
+function ValidateMenuPricesInternational() {
+    var validation = CDWInernationalMenuPrices();
+    var validationReqInstlDt = CDWRequestedInstallationDt();
+     // alert(validation)
+    //  alert(validationReqInstlDt)
+
+    if (validation == false || validationReqInstlDt == false) {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+function CDWInernationalMenuPrices() {
+    var Orderid = $("#Orderid").val();
+    //alert(Orderid);
+    var validatable = $("#MenuPricesInternational").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+
+        },
+        rules: {
+
+
+        }
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+//***End International MenuPrices***
+//***Start International DMB Information***
+function ValidateDMBInfoInternational() {
+    var validation = CDWDInternationalDMBInfoValidate();
+    var validationReqInstlDt = CDWRequestedInstallationDt();
+    //  alert(validation)
+    //  alert(validationReqInstlDt)
+
+    if (validation == false || validationReqInstlDt == false) {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+function CDWDInternationalDMBInfoValidate() {
+    var Orderid = $("#Orderid").val();
+    //alert(Orderid);
+    var validatable = $("#DMBInformationInternational").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+            timpicmsg: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid time");
+            },
+            //EmailISP: function (input) {
+            //    input.attr("ValidationMessage", "Valid Email of Contact of ISP is required")
+            //},
+        },
+        rules: {
+
+            timpicmsg: function (input) {
+                if (input.is("[data-role=timepicker]")) {
+                    return isTime(input.val());
+                }
+                return true;
+            },
+            EmailISP: function (input) {
+                //var emailid = "ucOrder" + Orderid + "$txtEmailOfContactOfISP_DMB";
+                //if (input.is("[name=" + emailid + "]")) {
+                //    return checkEmail(input.val());
+                //}
+                return true;
+            },
+        }
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+//***End International DMB Information***
+//###########End Code for InternationalOrders###########
+//###########Start Code for DMBONLY###########
+//***Start StoreInformation***
+function ValidateStoreInfoSaveChanges_DMBOnly() {
+    debugger;
+  var validation = CDWDMBOnlyStoreInfoValidate();
+  var validationReqInstlDt = CDWRequestedInstallationDt();
+           //alert(validation)
+           // alert(validationReqInstlDt)
+  if (validationReqInstlDt == true && validation == true) {
+      debugger;
+                var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+          
+                if (validationReqGreaterThanOrderDt == false) {
+                    // alert("invalid") 
+                    debugger;
+                    toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+                    return false;
+                }
+                else {
+                    //  alert("valid")
+                    debugger;
+                    return true;
+                }
+            }
+            else {
+                toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+                return false;
+            }
+
+         /*  if (validation == false || validationReqInstlDt == false) {
+             
+               return false;
+            }
+           else {
+               //alert("hi");
+                return true;
+            }*/
+        }
+function CDWDMBOnlyStoreInfoValidate() {
+    var Orderid = $("#Orderid").val();
+    //alert(Orderid);
+    var validatable = $("#StoreInfo").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em -2.7em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+            SchedueledOpenDt: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid date in mm/dd/yyyy");
+            },
+            timpicmsg: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid time");
+            },
+       },
+        rules: {
+
+            SchedueledOpenDt: function (input) {
+                var Dateid = "ucOrder" + Orderid + "$txtScheduleOpenDate";
+                if (input.is("[name=" + Dateid + "]")) {
+                    return checkdate(input.val());
+                }
+                return true;
+            },
+            timpicmsg: function (input) {
+                if (input.is("[data-role=timepicker]")) {
+                    return isTime(input.val());
+                }
+                return true;
+            },
+            
+        }
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+//***End StoreInformation***
+//***Start Menu Prices***
+function ValidateMenuPricesSaveChanges_DMBOnly() {
+    var validation = CDWDMBOnlyMenuPricesValidate();
+    var validationReqInstlDt = CDWRequestedInstallationDt();
+   // alert(validation)
+   // alert(validationReqInstlDt)
+
+    if (validationReqInstlDt == true && validation == true) {
+        var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+      //  alert(validationReqGreaterThanOrderDt)
+        if (validationReqGreaterThanOrderDt == false) {
+            // alert("invalid")
+            toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+            return false;
+        }
+        else {
+            //  alert("valid")
+            return true;
+        }
+    }
+    else {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+
+    /*if (validation == false || validationReqInstlDt == false) {
+        return false;
+    }
+    else {
+        return true;
+    }*/
+}
+function CDWDMBOnlyMenuPricesValidate() {
+    var Orderid = $("#Orderid").val();
+  //alert(Orderid);
+    var validatable = $("#MenuPrices").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+                          
+        },
+        rules: {
+
+        }
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+//***End Menu Prices***
+//***Start DMB Layout***
+function ValidateDMBLayoutSaveChanges_DMBOnly() {
+    var validation = CDWDMBLayoutValidate();
+    var validationReqInstlDt = CDWRequestedInstallationDt();
+    //alert(validation)
+    //alert(validationReqInstlDt)
+   /* if ($('#additionalInternational').length > 0) {
+        var inputstr = $('#txtAdditionalComments').val();
+        var encoded = encodeURIComponent(inputstr);
+        $('#additionalInternational').val(encoded);
+        debugger;
+        var u = $('#additionalInternational').val();
+        $('#txtAdditionalComments').val(' ');
+    }
+    if ($('#orderControlDMBBackup').length > 0) {
+        var inputstr = $('#txtAdditionalComments').val();
+        var encoded = encodeURIComponent(inputstr);
+        $('#orderControlDMBBackup').val(encoded);
+        debugger;
+        var u = $('#orderControlDMBBackup').val();
+        $('#txtAdditionalComments').val(' ');
+    }
+    if ($('#orderControlDMB').length > 0) {
+        var inputstr = $('#txtAdditionalComments').val();
+        var encoded = encodeURIComponent(inputstr);
+        $('#orderControlDMB').val(encoded);
+        debugger;
+        var u = $('#orderControlDMB').val();
+        $('#txtAdditionalComments').val(' ');
+    }*/
+    debugger;
+    // var inputstr = document.getElementById('#<%=txtAdditionalComments.ClientID%>');
+    var inputstr = $('.myClass').val();
+    var encoded = encodeURIComponent(inputstr);
+    
+    $('.col-md-12 input[type=hidden]').val(encoded);
+        debugger;
+        var u = $('.col-md-12 input[type=hidden]').val();
+    
+    $('.myClass').val(' ');
+
+    if (validationReqInstlDt == true && validation == true) {
+        var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+       // alert(validationReqGreaterThanOrderDt)
+        if (validationReqGreaterThanOrderDt == false) {
+            // alert("invalid")
+            toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+            return false;
+        }
+        else {
+            //  alert("valid")
+            return true;
+        }
+    }
+    else {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+
+    if (validation == false || validationReqInstlDt == false) {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function CDWDMBLayoutValidate() {
+    var Orderid = $("#Orderid").val();
+    var validatable = $("#DMBLayout").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+          
+        },
+        rules: {
+                    
+        }
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+//***End DMB Layout***
+//###########End Code for DMBONLY###########
+//###########Start Code for DriveThrough###########
+//***Start DriveThrough StoreInformation***
+function ValidateStoreInfoSaveChanges_DriveThrough() {
+    var validation = CDWDriveThroughStoreInfoValidate();
+    var validationReqInstlDt = CDWRequestedInstallationDt();
+    // alert(validation);
+   //  alert(validationReqInstlDt);
+     if (validationReqInstlDt == true && validation == true) {
+         var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+          // alert(validationReqGreaterThanOrderDt)
+         if (validationReqGreaterThanOrderDt == false) {
+             // alert("invalid")
+             toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+             return false;
+         }
+         else {
+             //  alert("valid")
+             return true;
+         }
+     }
+     else {
+         toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+         return false;
+     }
+   /* if (validation == false || validationReqInstlDt == false) {
+        return false;
+    }
+    else {
+        return true;
+    }*/
+}
+
+function CDWDriveThroughStoreInfoValidate() {
+
+    var Orderid = $("#Orderid").val();
+    var validatable = $("#DriveThroughStoreInfo").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+           timpicmsg: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid time");
+            },
+            SchedueledOpenDt: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid date in mm/dd/yyyy");
+            },
+           EmailISP: function (input) {
+                input.attr("ValidationMessage", "Valid Email of Contact of ISP is required")
+           },
+           TelISP: function (input) {
+               return input.attr("ValidationMessage", "Please enter valid Phone Number");
+           },
+
+
+        },
+        rules: {
+            timpicmsg: function (input) {
+                if (input.is("[data-role=timepicker]")) {
+                    // alert((input.val()));
+                    return isTime(input.val());
+                }
+                return true;
+            },
+            SchedueledOpenDt: function (input) {
+                var Dateid = "ucOrder" + Orderid + "$txtScheduleOpenDate";
+                if (input.is("[name=" + Dateid + "]")) {
+                    return checkdate(input.val());
+                }
+                return true;
+            },
+            EmailISP: function (input) {
+                var emailid = "ucOrder" + Orderid + "$txtISPContactEmail";
+                if (input.is("[name=" + emailid + "]")) {
+                    return checkEmail(input.val());
+                }
+                return true;
+            },
+            TelISP: function (input) {
+                var Telid = "ucOrder" + Orderid + "$txtISPContactPhone";
+                //alert(Telid)
+                if (input.is("[name=" + Telid + "]")) {
+                    return checkTel(input.val());
+                }
+                return true;
+            },
+        }
+        
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+//***End DriveThrough StoreInformation***
+//***Start Drive Through Menu Prices***
+function ValidateMenuPricesSaveChanges_DriveThrough() {
+    var validation = CDWDDriveThroughMenuPricesValidate();
+    var validationReqInstlDt = CDWRequestedInstallationDt();
+    //alert(validation)
+    //alert(validationReqInstlDt)
+
+    if (validationReqInstlDt == true && validation == true) {
+        var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+        //alert(validationReqGreaterThanOrderDt)
+        if (validationReqGreaterThanOrderDt == false) {
+            // alert("invalid")
+            toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+            return false;
+        }
+        else {
+            //  alert("valid")
+            return true;
+        }
+    }
+    else {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+
+   /* if (validation == false || validationReqInstlDt == false) {
+        return false;
+    }
+    else {
+        return true;
+    }*/
+}
+
+function CDWDDriveThroughMenuPricesValidate() {
+
+    var Orderid = $("#Orderid").val();
+    var validatable = $("#DriveThroughMenuPrices").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+            // custom: "Please enter valid date in mm/dd/yyyy",
+
+        },
+        rules: {
+        }
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+//***End Drive Through Menu Prices***
+//***Start Drive Through DMB Layout Config***
+function ValidateLunchLayoutSaveChanges_DriveThrough() {
+    debugger;
+    var validation = CDWDMBLayoutCofigValidate();
+    var validationReqInstlDt = CDWRequestedInstallationDt();
+   // alert(validation)
+   // alert(validationReqInstlDt)
+    
+    debugger;
+    var inputstr = $('.myClass').val();
+    var encoded = encodeURIComponent(inputstr);
+    $('.col-md-12 input[type=hidden]').val(encoded);
+    debugger;
+    var z = $('.col-md-12 input[type=hidden]').val();
+    $('.myClass').val(' ');
+    if (validationReqInstlDt == true && validation == true) {
+        var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+       // alert(validationReqGreaterThanOrderDt)
+        if (validationReqGreaterThanOrderDt == false) {
+            // alert("invalid")
+            toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+            return false;
+        }
+        else {
+            //  alert("valid")
+            return true;
+        }
+    }
+    else {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+
+  /*  if (validation == false || validationReqInstlDt == false) {
+        return false;
+    }
+    else {
+        return true;
+    }*/
+}
+function CDWDMBLayoutCofigValidate() {
+    var Orderid = $("#Orderid").val();
+    var validatable = $("#DriveThroughDMBLayoutConfig").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+            // custom: "Please enter valid date in mm/dd/yyyy",
+
+        },
+        rules: {
+
+        }
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+//***End Drive Through DMB Layout Config***
+//###########End Code for DriveThrough###########
+//###########Start Code for Ceasar Vision###########
+//***Start Ceasar Vision ControlBookConfig***
+function ValidateControlBookConfig() {
+    var validation = CDWOrderValidate();
+    var validationReqInstlDt = CDWRequestedInstallationDt();
+   // alert(validation)
+   // alert(validationReqInstlDt)
+
+    if (validationReqInstlDt == true && validation == true) {
+        var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+     //    alert(validationReqGreaterThanOrderDt)
+        if (validationReqGreaterThanOrderDt == false) {
+            // alert("invalid")
+            toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+            return false;
+        }
+        else {
+            //  alert("valid")
+            return true;
+        }
+    }
+    else {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+    //check here Requsted installation date status
+  /*  if (validation == false || validationReqInstlDt == false) {
+        return false;
+    }
+    else {
+        return true;
+    }*/
+
+}
+
+function CDWOrderValidate() {
+    var Orderid = $("#Orderid").val();
+    var validatable = $("#ControlBookConfig").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+            timpicmsg: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid time");
+            },
+            StoreCountry: function (input) {
+                return input.attr("ValidationMessage", "Please select the store country");
+            },
+            //DistributionCenter: function (input) {
+            //    return input.attr("ValidationMessage", "Please select the distribution center");
+            //},
+            SchedueledOpenDt: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid date in mm/dd/yyyy");
+            },
+     
+        },
+        rules: {
+
+            timpicmsg: function (input) {
+
+                if (input.is("[data-role=timepicker]")) {
+                    return isTime(input.val());
+                }
+                return true;
+            },
+
+            StoreCountry: function (input) {
+                var StoreCountry = $("#ucOrder" + Orderid + "_ddlStoreCountry").val();
+                //alert(StoreCountry)
+                if (input.is("[id=ucOrder" + Orderid + "_ddlStoreCountry]") && StoreCountry == "NA") {
+                    return false;
+                }
+                return true;
+            },
+
+            //DistributionCenter: function (input) {
+            //    var DistCenter = $("#ucOrder" + Orderid + "_ddlBlueLnDistCent").val();
+            //    if (input.is("[id=ucOrder" + Orderid + "_ddlBlueLnDistCent]") && DistCenter == "NA") {
+            //        return false;
+            //    }
+            //    return true;
+            //},
+
+            SchedueledOpenDt: function (input) {
+                var Dateid = "ucOrder" + Orderid + "$txtScheduledOpenDt";
+                //alert(Dateid);
+                if (input.is("[name=" + Dateid + "]")) {
+                    return checkdate(input.val());
+                }
+                return true;
+            },
+          
+        }
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+//***End Ceasar Vision ControlBookConfig***
+//***Start Ceasar Vision DMBInformation***
+function ValidateDMBInformation() {
+         
+    var validation = CDWDMBInformationValidate();
+    var validationReqInstlDt = CDWRequestedInstallationDt();
+   // alert(validation)
+   // alert(validationReqInstlDt)
+
+    if (validationReqInstlDt == true && validation == true) {
+        var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+          //  alert(validationReqGreaterThanOrderDt)
+        if (validationReqGreaterThanOrderDt == false) {
+            // alert("invalid")
+            toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+            return false;
+        }
+        else {
+            //  alert("valid")
+            return true;
+        }
+    }
+    else {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+
+  /*  if (validation == false || validationReqInstlDt == false) {
+        return false;
+    }
+    else {
+        return true;
+    }*/
+
+}
+
+function CDWDMBInformationValidate() {
+
+    var Orderid = $("#Orderid").val();
+    var validatable = $("#DMBInformation").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+            EmailISP: function (input) {
+                return input.attr("ValidationMessage","Valid Email of Contact of ISP is required");
+            },
+            timpicmsg: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid time");
+            },
+            TelISP: function (input) {
+                return input.attr("ValidationMessage", "Please enter valid Phone Number");
+            },
+
+        },
+        rules: {
+
+            /*custom: function (input) {
+              var Dateid = "ucOrder" + Orderid + "$dtRequestedInstallationDate";
+              if (input.is("[name=" + Dateid + "]")) {
+                  return checkdate(input.val());
+              }
+              return true;
+          },*/
+
+            EmailISP: function (input) {
+            //    // alert("ok")
+            //    var emailid = "ucOrder" + Orderid + "$txtEmailOfContactOfISP_DMB";
+            //    //alert(emailid)
+            //    if (input.is("[name=" + emailid + "]")) {
+            //        return checkEmail(input.val());
+            //    }
+                return true;
+            },
+
+            timpicmsg: function (input) {
+                // alert("ok")
+                // var timeid = "ucOrder" + Orderid + "$ddlLunchIsFrom_DMB";
+                // alert(timeid)
+                //  if (input.is("[name=" + timeid + "]")) {
+                //    alert((input.val()));
+                //    return isTime(input.val());
+                // }
+                // return true;
+
+                if (input.is("[data-role=timepicker]")) {
+                    // alert((input.val()));
+                    return isTime(input.val());
+                }
+                return true;
+            },
+
+            TelISP: function (input) {
+                var Telid = "ucOrder" + Orderid + "$txtPhoneNumberOfContactOfISP_DMB";
+                //alert(Telid)
+                if (input.is("[name=" + Telid + "]")) {
+                    return checkTel(input.val());
+                }
+                return true;
+            },
+ }
+
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+//***End Ceasar Vision DMBInformation***
+//###########End Code for Ceasar Vision###########
+//###########Start Common Code for  Requested Installation Date###########
+function CDWRequestedInstallationDt() {
+    var Orderid = $("#Orderid").val();
+    var validatable = $("#RequestedInstalDt").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+            //  RequstedInstalDt: "Please enter valid date in mm/dd/yyyy",
+            RequstedInstalDt: function (input) {
+                return input.attr("ValidationMessage","Please enter valid date in mm/dd/yyyy");
+            }
+
+        },
+        rules: {
+
+            RequstedInstalDt: function (input) {
+                var Dateid = "ucOrder" + Orderid + "$dtRequestedInstallationDate";
+                if (input.is("[name=" + Dateid + "]")) {
+                    return checkdate(input.val());
+                }
+                return true;
+            },
+        }
+
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+//###########End Common Code for  Requested Installation Date###########
+function getMessage(input) {
+    return input.data("message");
+}
+
+
+function backtomain() {
+    $("#Panel2").html("");
+}
+//##########Start Common functions#############
+function checkdate(date) {
+    debugger
+    // alert(date)
+    var validformat = /^\d{1,2}\/\d{1,2}\/\d{4}$/ //Basic check for format validity
+    var returnval = false
+    if (!validformat.test(date))
+    {
+        //alert("Invalid Date Format. Please correct and submit again.");
+        returnval = false; 
+    }
+    else { //Detailed check for valid date ranges
+        var monthfield = date.split("/")[0]
+        var dayfield = date.split("/")[1]
+        var yearfield = date.split("/")[2]
+        var dayobj = new Date(yearfield, monthfield - 1, dayfield)
+       // alert(monthfield);
+        if ((dayobj.getMonth() + 1 != monthfield) || (dayobj.getDate() != dayfield) || (dayobj.getFullYear() != yearfield))
+            returnval = false; //alert("Invalid Day, Month, or Year range detected. Please correct and submit again.")
+        else
+            returnval = true
+    }
+    //if (returnval == false) input.select()
+    return returnval
+}
+function checkdateGreaterThanOrderDT() {
+    var Orderid = $("#Orderid").val();
+    var validatable = $("#RequestedInstalDt").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin:0.5em 0.5em 0.5em -330px'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+            //  RequstedInstalDt: "Please enter valid date in mm/dd/yyyy",
+            RequstedInstalDt: function (input) {
+                return input.attr("ValidationMessage", "Requested Installation Date should be greater than or equal to 7 days from the order date and Should be greater than todays date");
+            }
+
+        },
+        rules: {
+
+            RequstedInstalDt: function (input) {
+                var Dateid = "ucOrder" + Orderid + "$dtRequestedInstallationDate";
+                if (input.is("[name=" + Dateid + "]")) {
+                    return checkdateGreaterThanOrderDate(input.val());
+                }
+                return true;
+            },
+        }
+
+
+    }).data("kendoValidator");
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+function checkdateGreaterThanOrderDate(date) {
+    debugger;
+    var ReqInstalDtMinVal = 7;
+    var Orderid = $("#Orderid").val();
+    var orderdt = $("#ucOrder" + Orderid + "_hdOrderDate").val();
+    //alert("orderdate=" + orderdt);
+
+    var orderdate = new Date(orderdt);
+    var selecteddate = new Date(date)
+
+    var newdate = new Date(orderdate);
+    console.log(newdate.getDate());
+    newdate.setDate(newdate.getDate() + ReqInstalDtMinVal);
+
+    var selectedDate1 = new Date(selecteddate.getFullYear(), selecteddate.getMonth(), selecteddate.getDate()); //Year, Month, Date
+    var OrderDate1 = new Date(newdate.getFullYear(), newdate.getMonth(), newdate.getDate()); //Year, Month, Date
+    var currentdate = new Date();
+    if (selectedDate1 >= OrderDate1 && selectedDate1 > currentdate) {
+        debugger;
+        return true;
+    }
+    else {
+        debugger;
+        return false;
+    }
+    return false;
+
+}
+//Time validator 
+function isTime(time) {
+           
+    var returnval = false
+    var errors = "";
+    var regex = /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/
+    if (time != "") {
+        if (!regex.test(time)) {
+                    
+            //errors += text0 + " is not in the time format.<BR>";
+            //return false;
+            //alert("incorrect");
+            returnval = false;
+        }
+        else
+        {
+            // alert("correct");
+            returnval = true;
+        }
+                   
+    }
+    return returnval;
+}
+            
+      
+//Email Validation
+function checkEmail(val) {
+    // alert(val)
+    var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    if (filter.test(val))
+    {
+        //  alert("correct");
+        return true;
+    }
+    else
+    {
+        // alert("incorrect");
+        return false;
+    }
+
+}
+
+//Telephone number validation allow only numbers
+function checkTel(el) {
+     var regex = /^[0-9]*$/;
+     var numberCheck = regex.exec(el);
+     //alert(numberCheck)
+     if (numberCheck == null)
+     {
+         return false;
+     }
+     else
+     {
+         return true;
+     }
+}          
+//##########End Common functions#############
+//###########Start Code for  Submit for Processing ###########
+
+function SubmitForProcessingCeasarVision() {
+    debugger;
+    var validationControlBookConfig = ValidateControlBookConfig();
+    var validationDMBInfo = ValidateDMBInformation();
+    var validationReqTech = RequiredTechnitionValidate();
+   // var validationReqInstlDt = CDWRequestedInstallationDt();
+  //  alert(validationControlBookConfig)
+   // alert(validationDMBInfo)
+ //   alert(validationReqInstlDt)
+    if (validationControlBookConfig == true && validationDMBInfo == true && validationReqTech== true) {
+        var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+      //      alert(validationReqGreaterThanOrderDt)
+        if (validationReqGreaterThanOrderDt == false) {
+          
+            debugger;
+            toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+            return false;
+        }
+        else {
+            // alert("valid")
+          //$("#popupWindow").modal('show');
+          //var ServerEvent = $("#ProcessingData").data.serverClickEvent;
+          //eval(ServerEvent)
+          //$("#ProcessingData").trigger("click");
+            //$.when(showConfirmationWindow('')).then(function (confirmed) {
+
+            //    if (confirmed) {
+                  return true;
+            //    }
+            //    else {
+            //        return false;
+            //    }
+            //});
+        }
+    }
+    else {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+}
+
+function SubmitForProcessingDMBOnly() {
+    //alert("ok")
+    var validationStoreInfo = ValidateStoreInfoSaveChanges_DMBOnly();
+    var validationMenuPrices = ValidateMenuPricesSaveChanges_DMBOnly();
+    var validationDMBLayout = ValidateDMBLayoutSaveChanges_DMBOnly();
+    var validationReqTech = RequiredTechnitionValidate();
+    //alert(validationReqTech)
+    //var validationReqInstlDt = CDWRequestedInstallationDt();
+    //alert(validationStoreInfo)
+    //alert(validationMenuPrices)
+    //alert(validationReqInstlDt)
+
+    if (validationStoreInfo == true && validationMenuPrices == true && validationDMBLayout == true && validationReqTech == true) {
+        var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+      //  alert(validationReqGreaterThanOrderDt)
+        if (validationReqGreaterThanOrderDt == false) {
+            // alert("invalid")
+            toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+            return false;
+        }
+        else {
+             //alert("valid")
+             //return true;
+          //$("#popupWindow").modal('show');
+          
+            //$.when(showConfirmationWindow('')).then(function (confirmed) {
+
+            //    if (confirmed) {
+                   return true;
+            //    }
+            //    else {
+            //        return false;
+            //    }
+            //});
+        }
+    }
+    else {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+  
+}
+
+function SubmitForProcessingDriveThrough() {
+ 
+    var validationStoreInfo_DriveThru = ValidateStoreInfoSaveChanges_DriveThrough();
+    var validationMenuPrices_DriveThru = ValidateMenuPricesSaveChanges_DriveThrough();
+    var validationLunchLayout_DriveThru = ValidateLunchLayoutSaveChanges_DriveThrough();
+    var validationReqTech = RequiredTechnitionValidate();
+   // alert(validationReqTech)
+   // var validationReqInstlDt = CDWRequestedInstallationDt();
+
+    //alert(validationStoreInfo_DriveThru)
+   // alert(validationMenuPrices_DriveThru)
+   // alert(validationLunchLayout_DriveThru)
+   // alert(validationReqInstlDt)
+
+
+    if (validationStoreInfo_DriveThru == true && validationMenuPrices_DriveThru == true && validationLunchLayout_DriveThru == true && validationReqTech == true) {
+        var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+        //  alert(validationReqGreaterThanOrderDt)
+        if (validationReqGreaterThanOrderDt == false) {
+            // alert("invalid")
+            toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+            return false;
+        }
+        else {
+            // alert("valid")
+          //$("#popupWindow").modal('show');
+    
+            //$.when(showConfirmationWindow('')).then(function (confirmed) {
+
+            //    if (confirmed) {
+                   return true;
+            //    }
+            //    else {
+            //       return false;
+            //    }
+            //});
+        }
+    }
+    else {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+
+}
+
+function SubmitForProcessingInternationalOrder() {
+
+    var validationControlBookConfig_Inter = ValidateControlBookConfigInternational();
+    var validationMenuPrices_Inter = ValidateMenuPricesInternational();
+    var validationLunchLayout_Inter = ValidateDMBInfoInternational();
+    var validationLangDt = CDWRequestedLanguage();
+  
+    // var validationReqInstlDt = CDWRequestedInstallationDt();
+
+   // alert(validationControlBookConfig_Inter)
+   // alert(validationMenuPrices_Inter)
+   //alert(validationLunchLayout_Inter)
+    // alert(validationReqInstlDt)
+
+
+    if (validationControlBookConfig_Inter == true && validationMenuPrices_Inter == true && validationLunchLayout_Inter == true && validationLangDt==true) {
+        var validationReqGreaterThanOrderDt = checkdateGreaterThanOrderDT();
+        //alert(validationReqGreaterThanOrderDt);
+        if (validationReqGreaterThanOrderDt == false) {
+            // alert("invalid")
+            toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+            return false;
+        }
+        else {
+            // alert("valid")
+          // $("#popupWindow").modal('show');
+ 
+            //$.when(showConfirmationWindow('')).then(function (confirmed) {
+
+            //    if (confirmed) {
+                   return true;
+            //    }
+            //    else {
+            //        return false;
+            //    }
+
+            //});
+
+        }
+
+    }
+    else {
+        toastr.error("Some of the data that you entered is invalid, please check the Form fields for Errors.");
+        return false;
+    }
+
+}
+
+//###########End  Code for  Submit for Processing ###########
+function validateonUpdate() {
+    //alert("ok2")
+
+
+    $("#btnsave_fran_Response").data.serverClickEvent = $("#btnsave_fran_Response").attr('onclick'); //save the onclick event locally
+    var IssueDescResolution = $("#btnsave_fran_Response").data.serverClickEvent;
+    $("#btnsave_fran_Response").removeAttr('onclick');   //remove it from the button
+    $("#btnsave_fran_Response").click(function () {   //add click handler (as opposed to trying to use the onclick html attribute)
+        if (validateIssueDescripAndResolution()) { //do the validation
+            eval(IssueDescResolution); //if true use reflection to execute the onserverclick event
+        }
+        return false; //regardless. Always do this.
+    });
+}
+
+function validateIssueDescripAndResolution() {
+    var validation = IssueDescriptionResolution();
+    debugger;
+   
+    //alert(validation)
+    if (validation == false) {
+        return false;
+    }
+    else {
+        var inputstr1 = $('#txtFranchiseResp').val().trim();
+        var encoded1 = encodeURIComponent(inputstr1);
+        $('#franchiseResp').val(encoded1);
+        debugger;
+        var x = $('#franchiseResp').val();
+        $('#txtFranchiseResp').val(' ');
+
+
+        debugger;
+        var inputstr2 = $('#txtDescr').val().trim();
+        var encoded2 = encodeURIComponent(inputstr2);
+        $('#Descr').val(encoded2);
+        debugger;
+        var y = $('#Descr').val();
+        $('#txtDescr').val(' ');
+            closemodal();
+ 
+        return true;
+    }
+}
+function validateinstallnotes()
+{
+    debugger;
+    if($('#rblInstallException').is(':checked'))
+    {
+        debugger;
+        $('#txtInstallationNotes').prop('required',true);
+    } 
+    else
+    {
+        $('#txtInstallationNotes').removeAttr('required');
+    }
+}
+function IssueDescriptionResolution() {
+    debugger;
+    var validatable = $("#dvCreateNew").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+               "class='k-widget k-tooltip k-tooltip-validation " +
+                   "k-invalid-msg field-validation-error' " +
+               "style='margin: 0.5em;'  role='alert'>" +
+               "<span class='k-icon k-warning'></span>" +
+               "#=message#" +
+               "<div class='k-callout k-callout-n'></div>" +
+           "</div>",
+        messages: {
+            IssueDescription: function (input) {
+                return input.attr("ValidationMessage", "Please enter Issue description");
+            },
+            Reolution: function (input) {
+                return input.attr("ValidationMessage", "Please enter resolution");
+            },
+
+
+        },
+        rules: {
+
+            IssueDescription: function (input) {
+                var IssueDesc = $("#txtDescr").val().trim();
+                if (input.is("[id=txtDescr]") && IssueDesc == "") {
+                    debugger;
+                    return false;
+                }
+
+                return true;
+            },
+            Reolution: function (input) {
+                debugger;
+                var Resolution = $("#txtFranchiseResp").val().trim();
+                var checkedValue = $("input[name='rdInspectionStatus']:checked").val()
+                //alert(checkedValue)
+                if (input.is("[id=txtFranchiseResp]") && Resolution == "" && checkedValue == 1) {
+
+                    return false;
+                }
+         
+                return true;
+            },
+        }
+    }).data("kendoValidator");
+
+    if (validatable.validate()) {
+        return true;
+    }
+    else {
+        return false;
+
+    }
+}
+function inactivelis()
+{
+  //  alert("hi");
+    //$("#panelbar").slideUp();
+    //$("#panelbar2").slideUp();
+    //$("#panelbar2").trigger("click");
+    var panelbar = $("#panelbar").data("kendoPanelBar");
+    panelbar.expand($("li", panelbar.element));
+    //$("#SystemSetupInfo").css("display", "none");
+    if(document.getElementById("DivDriveThroughSetup")!=null)
+    {
+        $("#DivDriveThroughSetup").css("display", "none");
+    }
+    
+}
+function LoadToolTipOrder()
+{
+    //debugger;
+    var InstallationCompletetooltip = $('input[type=radio][id=rbtLstInstall_0]').kendoTooltip({
+        autoHide: true,
+        show: onmouseover,
+        position: "bottom",
+        width: 200,
+        content: $("#InstallationCompleteToolTip").html()
+    }).data("kendoTooltip");
+    var InstallationCompletetooltip1 = $('input[type=radio][id=rbtLstInstall_1]').kendoTooltip({
+        autoHide: true,
+        show: onmouseover,
+        position: "bottom",
+        width: 200,
+        content: $("#InstallationCompleteToolTip").html()
+    }).data("kendoTooltip");
+    InstallationCompletetooltip.hide();
+    InstallationCompletetooltip1.hide();
+      $('input[type=radio][name=rbtLstInstall]').change(function () {
+        //debugger;
+        if (this.value == '1') {
+            debugger;
+            $('#NotesReq').show();
+                    $('#txtInstallationNotes').prop('required', true);
+                    $('#txtInstallationNotes').attr('ValidationMessage', "Installation Notes is required");
+                }
+        else if (this.value == '0') {
+            debugger;
+            $('#NotesReq').hide();
+                    $('#txtInstallationNotes').removeAttr('required');
+                }
+      });
+      $('#InstallationCompleteRadioDiv label').hover(function () {
+          InstallationCompletetooltip.hide();
+          InstallationCompletetooltip1.hide();
+          //debugger;
+          var id = $(this).attr("for");
+          console.log("labeld for" + id);
+          if ($("input[type=radio][id=" + id + "]").attr('value') == '0') {
+              InstallationCompletetooltip.options.content = "Click on Installation Complete if the installation is completed successfully";
+
+
+          }
+          else if ($("input[type=radio][id=" + id + "]").attr('value') == '1') {
+              InstallationCompletetooltip1.options.content="Click on Installed with Exceptions if the installation is completed but exceptions persists";
+
+          }
+         
+          
+          debugger
+          if (id == "rbtLstInstall_0") {
+              debugger
+              InstallationCompletetooltip.refresh();
+              InstallationCompletetooltip.show();
+              InstallationCompletetooltip1.hide();
+           
+           
+          }
+          if (id == "rbtLstInstall_1") {
+              InstallationCompletetooltip1.refresh();
+              InstallationCompletetooltip1.show();
+              InstallationCompletetooltip.hide();
+          }
+         // $("input[type=radio][id=" + id + "]").trigger('hover');
+      })
+ 
+      //$('input[type=radio][name=rbtLstInstall]').hover(function () {
+      //    debugger;
+      //    if (this.value == '0') {
+      //        $("#InstallationCompleteToolTip").html("Click on Installation Complete if the installation is completed successfully");           
+            
+      //    }
+      //    else if (this.value == '1') {
+      //        $("#InstallationCompleteToolTip").html("Click on Installed with Exceptions if the installation is completed but exceptions persists");
+             
+      //    }
+         
+
+       
+      //    debugger
+      //    if (this.id == "rbtLstInstall_0") {
+      //        debugger
+      //        InstallationCompletetooltip.show();
+      //        InstallationCompletetooltip1.destroy();
+
+      //    }
+      //    else if (this.id == "rbtLstInstall_1") {
+      //        debugger
+      //        InstallationCompletetooltip1.show();
+      //        InstallationCompletetooltip.destroy();
+      //    }
+      
+         
+      //});
+     
+     
+        debugger;
+   
+}
+function LoadToolTip()
+{
+    debugger;
+    var Orderid = $("#Orderid").val();
+    var orderField = "#ucOrder" + Orderid + "_RadioRequireTechnician";
+    var orderField1 = "ucOrder" + Orderid + "$RadioRequireTechnician";
+    var control = $(orderField + "_0").is(':disabled');
+    if (document.getElementById("divRadioRequireTechnician")!=null && control==false) {
+        
+
+       
+        $(orderField + ' input').change(function () {
+            // The one that fires the event is always the
+            // checked one; you don't need to test for this
+            //alert($(this).is(':checked').val());
+
+            val = $("input[name='" + orderField1 + "']:checked").val();
+            //alert(val);
+            if (val == "True") {
+               
+                tooltip.hide($('span' + orderField));
+                $("#TechnicianFee").css("display", "none");
+                //tooltip.show($("#divRadioRequireTechnician"));
+            }
+            else {
+                tooltip.hide($('span' + orderField));
+                $("#TechnicianFee").css("display", "none");
+            }
+        });
+        var tooltip = $("#divRadioRequireTechnician").kendoTooltip({
+            autoHide: false,
+            show: onclick,
+            position: "right",
+            filter: "span#" + orderField1 + "_0",
+            width: 200,
+            content: $("#TechnicianFee").html()
+        }).data("kendoTooltip");
+        $(orderField + ' input').trigger('change');
+    }
+  ////  alert($("input[name='ucOrder" + Orderid + "$RadioRequireTechnician']:checked").val())
+  //  if ($("input[name='ucOrder" + Orderid + "$RadioRequireTechnician']:checked").val()=="True")
+  //  {
+  //      $("#TechnicianFee").css("display", "block");
+       
+    //    tooltip.show($('span#'+orderField1));
+    //}
+    //else
+    //{
+    //    tooltip.hide($('span#' + orderField1));
+    //}
+   
+    //alert($('input[name=ucOrder' + Orderid + '$RadioRequireTechnician]:checked').val());
+
+
+
+
+}
+
+function RequiredTechnitionValidate() {
+
+    var Orderid = $("#Orderid").val();
+    var validatable = $("#divRadioRequireTechnician").kendoValidator({
+        errorTemplate: "<div id='validationMessage' " +
+                "class='k-widget k-tooltip k-tooltip-validation " +
+                    "k-invalid-msg field-validation-error' " +
+                "style='margin: 0.5em 0 0.5em 20em;'  role='alert'>" +
+                "<span class='k-icon k-warning'></span>" +
+                "#=message#" +
+                "<div class='k-callout k-callout-n'></div>" +
+            "</div>",
+        messages: {
+            ReqTech: function (input) {
+                return input.attr("validationmessage", "Please select the whether Technician required or not");
+            },
+
+
+        },
+        rules: {
+
+            ReqTech: function (input) {
+               var ReqTechni = "ucOrder" + Orderid + "$RadioRequireTechnician";
+               // alert(ReqTechni)
+               // alert(input.is("[name=" + ReqTechni + "]"))
+                //alert($("input[name='" + ReqTechni + "']:checked").val());
+                //if (input.is("[name=" + ReqTechni + "]") && !$("input[name='" + ReqTechni + "']:checked").val()) {
+                //    return false;
+                //}
+
+                return true;
+              
+            },
+        }
+
+
+    }).data("kendoValidator");
+    if (validatable != null) {
+        if (validatable.validate()) {
+            return true;
+        }
+        else {
+            return false;
+
+        }
+    }
+    else {
+        return true;
+    }
+
+}
+
+function showConfirmationWindow(message) {
+    return showWindow('#confirmationTemplate', message)
+};
+
+function showWindow(template, message) {
+
+    var dfd = new jQuery.Deferred();
+    var result = false;
+
+    //$("<div id='popupWindow'></div>")
+    //.appendTo("#UpdatePanel1")
+    $("#popupWindow")
+    .kendoWindow({
+        width: "600px",
+        modal: true,
+        resizable: false,
+        title: "Vendor Contact Information",
+        modal: true,
+        visible: false,
+        close: function (e) {
+            this.destroy();
+            dfd.resolve(result);
+        }
+    }).data('kendoWindow').content($(template).html()).center().open();
+
+    $('.popupMessage').html(message);
+
+    $('#popupWindow .confirm_yes').val('OK');
+    $('#popupWindow .confirm_no').val('Cancel');
+
+    $('#popupWindow .confirm_no').click(function () {
+        $('#popupWindow').data('kendoWindow').close();
+    });
+
+    $('#popupWindow .confirm_yes').click(function () {
+        result = true;
+        $('#popupWindow').data('kendoWindow').close();
+    });
+
+    return true;
+};
+

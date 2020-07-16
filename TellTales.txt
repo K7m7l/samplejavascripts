@@ -1,0 +1,277 @@
+ var textVal= $(this).val();
+   var result=(/<img.*|<script.*|<style.*|<embeded.*/ig).test(textVal);
+
+
+
+
+(ghost)
+ (skull)
+ (devil)
+(vampire)
+ (ladyvamp)
+(pumpkin)
+
+
+ (dog) -> bujjigadu
+ (cat) -> pilligadu
+ (monkey) ->kothigadu
+ (heidy)  -> nuttugadu
+ (donkey) -> chantigadu
+
+function disableHtml(element) {
+  element.value = element.value.replace(/[<>]/g, '');
+}
+
+
+
+var sanitized = $('<div>').html(textareavalue).text();
+
+
+
+if ( textArea.value.match(/<\/*[a-z][^>]+?>/gi) ) {
+  // do something about it
+}
+
+
+
+
+function Check(){
+
+var reg =/<(.|\n)*?>/g; 
+
+if (reg.test($('#YourTextAreaID').val()) == true) {
+
+    var ErrorText ='do not allow HTMLTAGS';
+
+    alert('ErrorText');
+
+    }
+}
+
+
+
+
+
+
+function reProcessText(){
+
+        var text= $('myTextArea').html();
+        var startTag=-1;
+        var endTag=-1;
+        for(var i=0;i<text.length;i++){
+            if(text[i]=='<')
+             startTag=i;
+        if(text[i]=='>')
+             endTag=i;
+        if(startTag != -1 && endTag!=-1){
+             text = text.substring(0,startTag) + text.substring(startTag+1, endTag);
+
+            startTag=endTag=-1;
+          }
+        }  
+}
+
+
+
+
+
+
+function checkHTMLtags(sender, args)
+    {
+       var trgtId = document.getElementById("<%=txt1.ClientID%>");
+       var str=trgtId.value
+       //convert to lowercase
+        str=str.toLowerCase()
+        //split the string by taking <br> as reference
+        var strArray=str.split('<br>');
+         if (strArray.length > 0)
+          {
+            for(k=0;k<strArray.length;k++)
+            {
+       for(i=0;i<strArray[k].length;i++)
+        {
+         //check for the presence of < and if available check the following char
+         //condition added to include > symbol as well
+         if((strArray[k].charAt(i)=='<') || (strArray[k].charAt(i)=='>'))
+            {
+                        var j=i+1;
+                        var str1=strArray[k].charAt(j);
+                        var myRegxp=/^[0-9]*$/ ;
+                        if(myRegxp.test(str1) == false)
+                        {
+                           //alert("No HTML Tags allowed in the textarea");
+                           trgtId.focus();
+                           args.IsValid = false;
+                           return;
+                        }
+                    }
+                }
+            }
+          }
+                         
+       args.IsValid = true;
+       return;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$('#SaveAfterInstallation').prop('disabled', false);
+             $('#txtInstallationDate').data('kendoDatePicker').enable(false);
+
+ $('#SaveAfterInstallation').prop('disabled', true);
+              $('#txtInstallationDate').data('kendoDatePicker').enable(true);
+  $('#SaveAfterInstallation').prop('disabled', false);
+                  $('#txtInstallationDate').data('kendoDatePicker').enable(false);
+  $('#SaveAfterInstallation').prop('disabled', true);
+                $('#txtInstallationDate').data('kendoDatePicker').enable(true);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9+/=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/rn/g,"n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
+
+// Define the string
+var string = 'Hello World!';
+
+// Encode the String
+var encodedString = Base64.encode(string);
+console.log(encodedString); // Outputs: "SGVsbG8gV29ybGQh"
+
+// Decode the String
+var decodedString = Base64.decode(encodedString);
+console.log(decodedString); // Outputs: "Hello World!"
+
+
+
+
+
+
+
+
+
+
+$(document).ready(function () {
+  //called when key is pressed in textbox
+  $("#quantity").on("keypress","keydown", function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+});
+
+
+
+
+
+
+try
+{
+//Some code that might throw an exception
+}
+catch(Exception ex)
+{
+LogManager.Log(ex.ToString());
+}
+
+
+
+ var inputstr = $('#txtInstallationNotes').val();
+        if ((inputstr != "")&&(inputstr!=" ")) {
+            var encoded = encodeURIComponent(inputstr);
+            $('#instalNotes').val(encoded);
+            debugger;
+            var x = $('#instalNotes').val();
+            $('#txtInstallationNotes').val(' ');
+        }
+        else {
+            var validatable = $("#txtInstallationNotes").kendoValidator({
+                errorTemplate: "<div id='validationMessage' " +
+                         "class='k-widget k-tooltip k-tooltip-validation " +
+                             "k-invalid-msg field-validation-error' " +
+                         "style='margin: 0.5em ;'  role='alert'>" +
+                         "<span class='k-icon k-warning'></span>" +
+                         "#=message#" +
+                         "<div class='k-callout k-callout-n'></div>" +
+                     "</div>",
+                messages: {
+                    ValidateActualInstalDate: function (input) {
+                        return input.attr("ValidationMessage", "Installation Exception Description Field is Required");
+                    }
+                }
+            });
+        }
+
+
+
+
+
+
+debugger;
+        var inputstr = $('#txtInstallationNotes').val();
+        var encoded = encodeURIComponent(inputstr);
+        $('#hidden1').val(encoded);
+        debugger;
+        var x = $('#hidden1').val();
+        $('#txtInstallationNotes').val('');
+  txtInstallationNotes.Text = HttpUtility.UrlDecode(installationNotes.SaveData[0].DataValue);
+string InstallationNotes = hidden1.Value.ToString();
+
+
+
+
+
+
+ #if((data.OrderStatus=="1" && data.usertypedata=="0") || (data.usertypedata=="1") ){# 
+ #}#
+
+
+
+
+
+
+
+ if (CurrentStatusName == "CDW_Status_Installed")
+                        {
+                            rbtLstInstall.Items[0].Selected = true;
+                        }
+                        else
+                        {
+                            rbtLstInstall.Items[0].Selected = true;
+                        }
