@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Realdada</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.6.7/c3.css" />
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.6.7/c3.js"></script>
+  <style>
+	
+	.height-full{
+		height:970px;
+	}
+	.height-top{
+		height:250px;
+	}
+	.margin-top-5{
+		margin-top: 5%;
+	}
+	.margin-top-3{
+		margin-top: 3%;
+	}
+	.navbar-inverse {
+		background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%) !important;
+		color: #fff;
+	}
+	.navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-brand{
+		color: #f2f2f2;
+	}
+	.back-grey{
+		background-image: linear-gradient(to right, #f2f2f2 0%, #e7e7e7 100%) !important;
+	}
+	.round-edge
+	{
+		border-radius: 3px;
+	}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 20px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+/*Radio box*/
+
+input[type="radio"] + .label-text:before{
+	content: "\f10c";
+	font-family: "FontAwesome";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing:antialiased;
+	width: 1em;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+input[type="radio"]:checked + .label-text:before{
+	content: "\f192";
+	color: #8e44ad;
+	animation: effect 250ms ease-in;
+}
+
+input[type="radio"]:disabled + .label-text{
+	color: #aaa;
+}
+
+input[type="radio"]:disabled + .label-text:before{
+	content: "\f111";
+	color: #ccc;
+}
+
+/*Radio Toggle*/
+
+.toggle input[type="radio"] + .label-text:before{
+	content: "\f204";
+	font-family: "FontAwesome";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing:antialiased;
+	width: 1em;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.toggle input[type="radio"]:checked + .label-text:before{
+	content: "\f205";
+	color: #16a085;
+	animation: effect 250ms ease-in;
+}
+
+.toggle input[type="radio"]:disabled + .label-text{
+	color: #aaa;
+}
+
+.toggle input[type="radio"]:disabled + .label-text:before{
+	content: "\f204";
+	color: #ccc;
+}
+
+
+@keyframes effect{
+	0%{transform: scale(0);}
+	25%{transform: scale(1.3);}
+	75%{transform: scale(1.4);}
+	100%{transform: scale(1);}
+}
+label{
+	position: relative;
+	cursor: pointer;
+	color: #666;
+	font-size: 18px;
+}
+input[type="radio"]{
+	position: absolute;
+	right: 9000px;
+}
+.switch {
+  position: relative;
+  height: 26px;
+  width: 120px;
+  margin: 0.5% auto;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.switch-label {
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 58px;
+  line-height: 26px;
+  font-size: 11px;
+  color: rgba(0, 0, 0);
+  text-align: center;
+  cursor: pointer;
+}
+.switch-label:active {
+  font-weight: bold;
+}
+
+.switch-label-off {
+  padding-left: 2px;
+}
+
+.switch-label-on {
+  padding-right: 2px;
+}
+
+
+.switch-input {
+  display: none;
+}
+.switch-input:checked + .switch-label {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.65);
+  text-shadow: 0 1px rgba(255, 255, 255, 0.25);
+  -webkit-transition: 0.15s ease-out;
+  -moz-transition: 0.15s ease-out;
+  -ms-transition: 0.15s ease-out;
+  -o-transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
+  -webkit-transition-property: color, text-shadow;
+  -moz-transition-property: color, text-shadow;
+  -ms-transition-property: color, text-shadow;
+  -o-transition-property: color, text-shadow;
+  transition-property: color, text-shadow;
+}
+.switch-input:checked + .switch-label-on ~ .switch-selection {
+  left: 60px;
+  /* Note: left: 50%; doesn't transition in WebKit */
+}
+
+.switch-selection {
+  position: absolute;
+  z-index: 1;
+  top: 2px;
+  left: 2px;
+  display: block;
+  width: 58px;
+  height: 22px;
+  border-radius: 3px;
+  background-color: #65bd63;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #9dd993), color-stop(100%, #65bd63));
+  background-image: -webkit-linear-gradient(top, #9dd993, #65bd63);
+  background-image: -moz-linear-gradient(top, #9dd993, #65bd63);
+  background-image: -ms-linear-gradient(top, #9dd993, #65bd63);
+  background-image: -o-linear-gradient(top, #9dd993, #65bd63);
+  background-image: linear-gradient(top, #9dd993, #65bd63);
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
+  -webkit-transition: left 0.15s ease-out;
+  -moz-transition: left 0.15s ease-out;
+  -ms-transition: left 0.15s ease-out;
+  -o-transition: left 0.15s ease-out;
+  transition: left 0.15s ease-out;
+}
+.switch-blue .switch-selection {
+  background-color: #3aa2d0;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4fc9ee), color-stop(100%, #3aa2d0));
+  background-image: -webkit-linear-gradient(top, #4fc9ee, #3aa2d0);
+  background-image: -moz-linear-gradient(top, #4fc9ee, #3aa2d0);
+  background-image: -ms-linear-gradient(top, #4fc9ee, #3aa2d0);
+  background-image: -o-linear-gradient(top, #4fc9ee, #3aa2d0);
+  background-image: linear-gradient(top, #4fc9ee, #3aa2d0);
+}
+.switch-yellow .switch-selection {
+  background-color: #c4bb61;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e0dd94), color-stop(100%, #c4bb61));
+  background-image: -webkit-linear-gradient(top, #e0dd94, #c4bb61);
+  background-image: -moz-linear-gradient(top, #e0dd94, #c4bb61);
+  background-image: -ms-linear-gradient(top, #e0dd94, #c4bb61);
+  background-image: -o-linear-gradient(top, #e0dd94, #c4bb61);
+  background-image: linear-gradient(top, #e0dd94, #c4bb61);
+}
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">ᖇᗴᗩᒪᗪᗩᗪᗩ</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+	  <li><a href="#">Play</a></li>
+	  <li><a href="#">Contact</a></li>
+	  <li><a href="#">About</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container-fluid height-full margin-top-5" >  
+
+	<div class="col-sm-12 round-edge">
+		<div class="col-sm-4">
+			<input id="sity" PLACEHOLDER="CITY" list="cities" name="city" />
+			<datalist id="cities">
+					<option>Ahmedabad</option> 
+					<option>Bengaluru/Bangalore</option>
+					<option>Chandigarh</option>
+					<option>Chennai</option>
+					<option>Delhi</option>
+					<option>Gurgaon</option>
+					<option>Hyderabad/Secunderabad</option>
+					<option>Kolkatta</option>
+					<option>Mumbai</option>
+					<option>Noida</option>
+					<option>Pune</option>
+
+					<option>Anantapur</option>
+					<option>Guntakal</option>
+					<option>Guntur</option>
+					<option>Hyderabad/Secunderabad</option>
+					<option>kakinada</option>
+					<option>kurnool</option>
+					<option>Nellore</option>
+					<option>Nizamabad</option>
+					<option>Rajahmundry</option>
+					<option>Tirupati</option>
+					<option>Vijayawada</option>
+					<option>Visakhapatnam</option>
+					<option>Warangal</option>
+					<option>Andra Pradesh-Other</option>
+
+					<option>Itanagar</option>
+					<option>Arunachal Pradesh-Other</option>
+
+					<option>Guwahati</option>
+					<option>Silchar</option>
+					<option>Assam-Other</option>
+
+					<option>Bhagalpur</option>
+					<option>Patna</option>
+					<option>Bihar-Other</option>
+
+					<option>Bhillai</option>
+					<option>Bilaspur</option>
+					<option>Raipur</option>
+					<option>Chhattisgarh-Other</option>
+
+					<option>Panjim/Panaji</option>
+					<option>Vasco Da Gama</option>
+					<option>Goa-Other</option>
+
+					<option>Ahmedabad</option>
+					<option>Anand</option>
+					<option>Ankleshwar</option>
+					<option>Bharuch</option>
+					<option>Bhavnagar</option>
+					<option>Bhuj</option>
+					<option>Gandhinagar</option>
+					<option>Gir</option>
+					<option>Jamnagar</option>
+					<option>Kandla</option>
+					<option>Porbandar</option>
+					<option>Rajkot</option>
+					<option>Surat</option>
+					<option>Vadodara/Baroda</option>
+					<option>Valsad</option>
+					<option>Vapi</option>
+					<option>Gujarat-Other</option>
+
+					<option>Ambala</option>
+					<option>Chandigarh</option>
+					<option>Faridabad</option>
+					<option>Gurgaon</option>
+					<option>Hisar</option>
+					<option>Karnal</option>
+					<option>Kurukshetra</option>
+					<option>Panipat</option>
+					<option>Rohtak</option>
+					<option>Haryana-Other</option>
+
+					<option>Dalhousie</option>
+					<option>Dharmasala</option>
+					<option>Kulu/Manali</option>
+					<option>Shimla</option>
+					<option>Himachal Pradesh-Other</option>
+
+					<option>Jammu</option>
+					<option>Srinagar</option>
+					<option>Jammu and Kashmir-Other</option>
+
+					<option>Bokaro</option>
+					<option>Dhanbad</option>
+					<option>Jamshedpur</option>
+					<option>Ranchi</option>
+					<option>Jharkhand-Other</option>
+
+					<option>Bengaluru/Bangalore</option>
+					<option>Belgaum</option>
+					<option>Bellary</option>
+					<option>Bidar</option>
+					<option>Dharwad</option>
+					<option>Gulbarga</option>
+					<option>Hubli</option>
+					<option>Kolar</option>
+					<option>Mangalore</option>
+					<option>Mysoru/Mysore</option>
+					<option>Karnataka-Other</option>
+
+					<option>Calicut</option>
+					<option>Cochin</option>
+					<option>Ernakulam</option>
+					<option>Kannur</option>
+					<option>Kochi</option>
+					<option>Kollam</option>
+					<option>Kottayam</option>
+					<option>Kozhikode</option>
+					<option>Palakkad</option>
+					<option>Palghat</option>
+					<option>Thrissur</option>
+					<option>Trivandrum</option>
+					<option>Kerala-Other</option>
+
+					<option>Bhopal</option>
+					<option>Gwalior</option>
+					<option>Indore</option>
+					<option>Jabalpur</option>
+					<option>Ujjain</option>
+					<option>Madhya Pradesh-Other</option>
+
+					<option>Ahmednagar</option>
+					<option>Aurangabad</option>
+					<option>Jalgaon</option>
+					<option>Kolhapur</option>
+					<option>Mumbai</option>
+					<option>Mumbai Suburbs</option>
+					<option>Nagpur</option>
+					<option>Nasik</option>
+					<option>Navi Mumbai</option>
+					<option>Pune</option>
+					<option>Solapur</option>
+					<option>Maharashtra-Other</option>
+
+					<option>Imphal</option>
+					<option>Manipur-Other</option>
+
+					<option>Shillong</option>
+					<option>Meghalaya-Other</option>
+
+					<option>Aizawal</option>
+					<option>Mizoram-Other</option>
+
+					<option>Dimapur</option>
+					<option>Nagaland-Other</option>
+
+					<option>Bhubaneshwar</option>
+					<option>Cuttak</option>
+					<option>Paradeep</option>
+					<option>Puri</option>
+					<option>Rourkela</option>
+					<option>Orissa-Other</option>
+
+					<option>Amritsar</option>
+					<option>Bathinda</option>
+					<option>Chandigarh</option>
+					<option>Jalandhar</option>
+					<option>Ludhiana</option>
+					<option>Mohali</option>
+					<option>Pathankot</option>
+					<option>Patiala</option>
+					<option>Punjab-Other</option>
+
+					<option>Ajmer</option>
+					<option>Jaipur</option>
+					<option>Jaisalmer</option>
+					<option>Jodhpur</option>
+					<option>Kota</option>
+					<option>Udaipur</option>
+					<option>Rajasthan-Other</option>
+
+					<option>Gangtok</option>
+					<option>Sikkim-Other</option>
+
+					<option>Chennai</option>
+					<option>Coimbatore</option>
+					<option>Cuddalore</option>
+					<option>Erode</option>
+					<option>Hosur</option>
+					<option>Madurai</option>
+					<option>Nagerkoil</option>
+					<option>Ooty</option>
+					<option>Salem</option>
+					<option>Thanjavur</option>
+					<option>Tirunalveli</option>
+					<option>Trichy</option>
+					<option>Tuticorin</option>
+					<option>Vellore</option>
+					<option>Tamil Nadu-Other</option>
+
+					<option>Agartala</option>
+					<option>Tripura-Other</option>
+
+					<option>Chandigarh</option>
+					<option>Dadra & Nagar Haveli-Silvassa</option>
+					<option>Daman & Diu</option>
+					<option>Delhi</option>
+					<option>Pondichery</option>
+					<option>Agra</option>
+					<option>Aligarh</option>
+					<option>Allahabad</option>
+					<option>Bareilly</option>
+					<option>Faizabad</option>
+					<option>Ghaziabad</option>
+					<option>Gorakhpur</option>
+					<option>Kanpur</option>
+					<option>Lucknow</option>
+					<option>Mathura</option>
+					<option>Meerut</option>
+					<option>Moradabad</option>
+					<option>Noida</option>
+					<option>Varanasi/Banaras</option>
+					<option>Uttar Pradesh-Other</option>
+
+					<option>Dehradun</option>
+					<option>Roorkee</option>
+					<option>Uttaranchal-Other</option>
+
+					<option>Asansol</option>
+					<option>Durgapur</option>
+					<option>Haldia</option>
+					<option>Kharagpur</option>
+					<option>Kolkatta</option>
+					<option>Siliguri</option>
+					<option>West Bengal - Other</option>
+					<option>Other</option>
+			</datalist>
+		</div>
+		<div class="col-sm-4">
+		  <div class="col-sm-4">
+			<input id="ariya" list="areas" PLACEHOLDER="AREA" name="area" />
+			<datalist id="areas">
+				<option value="Gandhi Nagar" />
+				<option value="Nehru Nagar" />
+				<option value="Indira Nagar" />
+				<option value="Rajeev Nagar" />
+				<option value="Moulana Kalan" />
+				<option value="Sanjeev Nagar" />
+				<option value="Rahul Nagar" />
+				<option value="Sonia Nagar" />
+				<option value="Ride Priyanka" />
+			</datalist>
+		</div>
+		</div>
+		<div class="col-sm-4">
+		   <div class="col-sm-4">
+				<input id="typee" list="types" PLACEHOLDER="TYPE" name="type" />
+				<datalist id="types">
+					<option value="Projects" />
+					<option value="All Commerical" />
+					<option value="Residential Apartment" />
+					<option value="Indepenedent Floor/Building" />
+					<option value="Independent House" />
+					<option value="Residential Plot" />
+					<option value="Residential Flat" />
+					<option value="Farm House" />
+					<option value="Serviced Apartment" />
+					<option value="Others" />
+				</datalist>
+			</div>
+		</div>
+		<div class="col-sm-12"> <h4 id="valMessage" style="color:#ff0000">  </h4></div>
+	</div>
+	<div  class="col-sm-12 margin-top-3">
+		<div class="rangeslider-wrap col-md-10">	
+		  <h4 id="ronge">Budget Range` </h4>
+		  <input ID="RANGER"  height="25" value="1500000" type="range" min="1500000" max="990000000" step="10000" labels="">
+		</div>
+		<div class="col-md-2">
+			<h4>Budget Range Includes</h4>
+			 <div class="switch switch-blue">
+			  <input type="radio" class="switch-input" name="view2" value="week2" id="week2" checked>
+			  <label for="week2" class="switch-label switch-label-off">LT</label>
+			  <input type="radio" class="switch-input" name="view2" value="month2" id="month2">
+			  <label for="month2" class="switch-label switch-label-on">ST</label>
+			  <span class="switch-selection"></span>
+			</div>
+		</div>
+	</div>
+	
+	<div  class="col-sm-12 margin-top-3">
+		<div class="col-sm-6">	
+		<h4>History</h4>
+		<!--<h5> Decade / Monthly / Yearly </h5>-->
+			<div class="row"> 
+				<button title="Decade" type="button" class="btn btn-link">DOD</button> 
+				<button title="Month" type="button" class="btn btn-link">MOM</button> 
+				<button title="Yearly" type="button" class="btn btn-link">YOY</button> 
+			</div>
+			<div id="chart1" class="c3"> </div>
+		</div>
+		<div class="col-sm-6">	
+		<h4>Prediction</h4>
+		<!--<h5> Decade / Monthly / Yearly </h5>-->
+			<div class="row"> 
+				<button title="Decade" type="button" class="btn btn-link">DOD</button> 
+				<button title="Month" type="button" class="btn btn-link">MOM</button> 
+				<button title="Yearly" type="button" class="btn btn-link">YOY</button> 
+			</div>
+			<div id="chart2" class="c3"> </div>
+		</div>
+	</div>
+	<div class="col-sm-12 margin-top-3">
+		<h2 class="text-center btn-link"> Do you Agree for Payment ?? </h2>
+		<div class="col-md-12">
+			<button class="btn btn-success col-md-4"> Yes(Proceed) </button>
+			<button class="btn btn-warning col-md-4"> Yes(Later) </button>
+			<button class="btn btn-danger col-md-4"> No </button>
+		</div>
+	</div>
+</div>
+<script>
+
+$(document).ready(function(){
+	
+
+	var $rangeslider = $('#RANGER');
+
+	$rangeslider
+	  .rangeslider({
+		polyfill: false
+	  })
+	  .on('input', function() {
+	  });
+
+	var line1 = [
+			['Price (x100000)', 30, 200, 100, 400, 150, 250],
+		  ];
+	var line2 = [
+			['Price (x100000)', 30, 200, 100, 400, 150, 250],
+		  ];
+	  fillCharts(line2,line1);
+
+});
+var fillCharts = function(line1,line2){
+	var chart1 = c3.generate({
+		bindto: '#chart1',
+		data: {
+		  columns: line1
+		},
+		axis: {
+		x : {
+			type: 'category',
+			categories:  ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018']
+		}
+		}
+	});
+	var chart2= c3.generate({
+		bindto: '#chart2',
+		data: {
+		  columns: line2
+		},
+		axis: {
+		x : {
+			type: 'category',
+			categories:  ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027']
+		}
+		}
+	});
+}
+
+$("#typee").on('input', function () {
+    if($("#ariya").val().trim() == ''){
+		
+	}
+	else if($("#sity").val().trim() == ''){
+		
+	}
+	else{
+		var area = $("#ariya").val().trim();
+		var city = $("#sity").val().trim();
+		var type = $("#typee").val().trim();
+		
+		var c = city.charCodeAt(0) * city.length;
+		var a = area.charCodeAt(0) * area.length;
+		var t = type.charCodeAt(0) * type.length;
+		
+		var cat = c * a * t;
+		console.log(cat);
+		
+		var caty = cat.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+		
+		catyx=cat.toString();
+		var lastThree = catyx.substring(catyx.length-3);
+		var otherNumbers = catyx.substring(0,catyx.length-3);
+		if(otherNumbers != '')
+			lastThree = ',' + lastThree;
+		var caty = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+		
+		
+		$('#ronge').html($('#ronge').text().split('`')[0] + '`' +'&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &#x20b9;' +caty);
+		
+		$('input[type="range"]').val(cat).change();
+		
+		var line1 = [
+			['Price (x100000)', c, a, t, c, a, t],
+		  ];
+		var line2 = [
+			['Price (x100000)', c, a, t, c, a, t],
+		  ];
+	  fillCharts(line2,line1);
+		
+	}
+});
+$("#ariya").on('input', function () {
+    if($("#sity").val().trim() == ''){
+		
+	}
+	else{
+		$("#typee").val('');
+		
+	}
+});
+$("#sity").on('input', function () {
+    $("#typee").val('');
+	$("#ariya").val('');
+	
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Aika</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+  <style>
+	.pull-right{
+		float:right !important;
+	}
+  </style>
+</head>
+<body>
+
+  
+<div class="container">
+  <div class="row">
+    <div class="btn-group btn-group-sm">
+	  <button type="button" id="inn" class="btn btn-primary">In</button>
+	  <button type="button" id="outt" class="btn btn-info">Out</button>
+	  <button type="button" id="tti" class="btn btn-success">Total In Time</button>
+	  <button type="button" id="tto" class="btn btn-warning">Total Out Time</button>
+	</div>
+  </div>
+	<div class="row">
+	<table id="MainTable" class="table">
+	  <thead class="thead-light">
+		<tr>
+		  <th scope="col">#</th>
+		  <th scope="col">Out</th>
+		  <th scope="col">In</th>
+		  <th scope="col">Gap</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		
+	  </tbody>
+	</table>
+  </div>
+</div>
+<script>
+
+var inouttimes = [];
+var ontime;
+
+$(document).ready(function(){
+	ontime = getTimeNow();
+});
+
+$('#inn').on("click",function()
+{
+	var cur_time = getTimeNow();
+	var j = 0;
+	var differ;
+	if(inouttimes!=null && inouttimes.length > 0)
+	{
+		for(var i=0; i<inouttimes.length; i++)
+		{
+			if(inouttimes[i].IN == '')
+			{
+				inouttimes[i].IN = cur_time;
+				j=i;
+				differ = getDifference(inouttimes[i].IN, inouttimes[i].OUT);
+				inouttimes[i].GAP = differ;
+			}
+		}
+	}
+	
+	var trs = $('#MainTable').children('tbody').children('tr');
+	var tds = $(trs[j]).children('td');
+	$(tds[2]).html(cur_time);
+	$(tds[3]).html(differ);
+});
+
+$('#outt').on("click",function()
+{
+	var cur_time = getTimeNow();
+	var id = $('#MainTable').children('tbody').children('tr').length + 1;
+	var rower = {"ID":id, "OUT":cur_time, "IN":'', "GAP":''};
+	
+	inouttimes.push(rower);
+	
+	insertRow(id, cur_time, '','');
+});
+
+$('#tto').on("click",function()
+{
+	if(inouttimes!=null && inouttimes.length > 0)
+	{
+		alert("Your OutTime : " + getOutTime());
+	}
+});
+
+$('#tti').on("click",function()
+{
+	if(inouttimes!=null && inouttimes.length > 0)
+	{
+		var starttime = ontime;
+		var stoptime = getTimeNow();
+		
+		var diff = getDifference(stoptime,starttime);
+		alert("Your InTime : " + getDifference(diff, getOutTime()));
+	}
+});
+
+function getTimeNow()
+{
+	var today = new Date();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	return time;
+}
+
+function getDifference(one,two)
+{
+	debugger;
+	var typ = '';
+	for(var t=0;t<3;t++)
+	{
+		typ = typ + (one.split(':')[t] - two.split(':')[t]);
+		if(t==2)
+		{
+			
+		}
+		else
+		{
+			typ = typ + ':';
+		}
+	}
+	return typ;
+}
+
+function getOutTime()
+{
+	debugger;
+	var a = []; b = [];c = [];
+	for(var i=0; i<inouttimes.length; i++)
+	{
+		a.push(inouttimes[i].GAP.split(':')[0]);
+		b.push(inouttimes[i].GAP.split(':')[1]);
+		c.push(inouttimes[i].GAP.split(':')[2]);
+	}
+	var d='',e='',f='';
+	var d = a.reduce(function(a, b) { return a + b; }, 0);
+	var e = b.reduce(function(a, b) { return a + b; }, 0);
+	var f = c.reduce(function(a, b) { return a + b; }, 0);
+	
+	return  d+':'+e+':'+f;
+}
+
+function insertRow(one, two, three, four)
+{
+	$('#MainTable').children('tbody').append('<tr><td>'+one+'</td><td>'+two+'</td><td>'+three+'</td><td>'+four+'</td></tr>');
+}
+
+function formatDate(date)
+{
+	var d = new Date(date),
+		month = '' + (d.getMonth() + 1),
+		day = '' + d.getDate(),
+		year = d.getFullYear();
+
+	if (month.length < 2) month = '0' + month;
+	if (day.length < 2) day = '0' + day;
+
+	return [year, month, day].join('-');
+}
+
+</script>
+</body>
+</html>
